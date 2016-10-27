@@ -26,14 +26,14 @@ function initMap() {
         {title: 'Trippy Taco', location: {lat: -37.8065107, lng: 144.9802333}, cuisine: 'Mexican'},
         {title: 'Shujinko', location: {lat: -37.8113177, lng: 144.9649363}, cuisine: 'Japanese'},
         {title: 'Bimbo Deluxe', location: {lat: -37.7960887, lng: 144.9768523}, cuisine: 'Pizza'},
-        {title: 'Arbory Bar and Eatery', location: {lat: -37.8189329, lng: 144.9639345}, cuisine: 'Pub Meals'},
+        {title: 'Arbory Bar and Eatery', location: {lat: -37.8189329, lng: 144.9639345}, cuisine: 'Pubmeal'},
         {title: 'Slice Girls West', location: {lat: -37.8018787, lng: 144.9045083}, cuisine: 'Burgers'},
         {title: 'Middle Fish', location: {lat: -37.802564, lng: 144.9568226}, cuisine: 'Seafood'},
         {title: 'Game Chicken', location: {lat: -37.8143223, lng: 144.9587169}, cuisine: 'Korean'},
         {title: 'African Taste', location: {lat: -37.8037938, lng: 144.8899948}, cuisine: 'African'},
         {title: 'Purple Peanuts Japanese Café', location: {lat: -37.8186653, lng: 144.9520687}, cuisine: 'Japanese'},
         {title: 'Katarina Zrinski Restaurant', location: {lat: -37.8043028, lng: 144.9023621}, cuisine: 'Russian'},
-        {title: 'Tiba\'s Lebanese Food', location: {lat: -37.7661628, lng: 144.9603235}, cuisine: 'Kebabs'},
+        {title: 'Tiba\'s Lebanese Food', location: {lat: -37.7661628, lng: 144.9603235}, cuisine: 'Kebabs'}
     ];
 
     var largeInfowindow = new google.maps.InfoWindow();
@@ -41,16 +41,20 @@ function initMap() {
 
     // The following group uses the location array to create an array of markers on initialize.
     for (var i = 0; i < locations.length; i++) {
-    // Get the position from the location array.
+
+        // Get the position from the location array.
         var position = locations[i].location;
         var title = locations[i].title;
+        var cuisine = locations[i].cuisine;
+
         // Create a marker per location, and put into markers array.
         var marker = new google.maps.Marker({
-        map: map,
-        position: position,
-        title: title,
-        animation: google.maps.Animation.DROP,
-        id: i
+            map: map,
+            position: position,
+            title: title,
+            cuisine: cuisine,
+            animation: google.maps.Animation.DROP,
+            id: i
         });
 
         // Push the marker into the markers array.
@@ -75,9 +79,8 @@ function initMap() {
 }
 
 
-// This popups the restaurant info window.
+// This popups the restaurant info window by clicking the restaurant in the restaurant list.
 function restaurantClick(i) {
-    console.log('Click!');
     google.maps.event.trigger(markers[i], 'click');
 }
 
@@ -87,7 +90,7 @@ function populateInfoWindow(marker, infowindow) {
 // Check to make sure the infowindow is not already opened on this marker.
     if (infowindow.marker != marker) {
         infowindow.marker = marker;
-        infowindow.setContent('<div><h3>' + marker.title + '</h3></div>');
+        infowindow.setContent('<div><h4>' + marker.title + '</h4></div>');
         infowindow.open(map, marker);
         // Make sure the marker property is cleared if the infowindow is closed.
         infowindow.addListener('closeclick', function() {
@@ -102,8 +105,8 @@ function showListings() {
     var bounds = new google.maps.LatLngBounds();
     // Extend the boundaries of the map for each marker and display the marker
     for (var i = 0; i < markers.length; i++) {
-          markers[i].setMap(map);
-          bounds.extend(markers[i].position);
+        markers[i].setMap(map);
+        bounds.extend(markers[i].position);
     }
     map.fitBounds(bounds);
 }
@@ -117,16 +120,31 @@ function hideListings() {
 }
 
 
-// Initialize
-initMap();
-
-
-// This is a simple *viewmodel* - JavaScript that defines the data and behavior of your UI
-function AppViewModel() {
-
+function clearRestaurantList() {
+    $('li').remove();
 }
 
-// Activates knockout.js
-ko.applyBindings(new AppViewModel());
 
+// This function will filter the markers by their cuisine choice
+function filterByCuisine(foodChoice) {
+    // Extend the boundaries of the map for each marker and display the marker
+    console.log(foodChoice);
+    hideListings();
+    clearRestaurantList();
+    for (var i = 0; i < markers.length; i++) {
+        if (foodChoice == "All") {
+            showListings();
+            $('ul').append('<li><a class="restaurant" href="javascript:restaurantClick(' + i + ')">' + markers[i].title + '</a></li>');
+        }
+
+        else if (markers[i].cuisine == foodChoice) {
+            console.log(foodChoice + ' is a match!');
+            markers[i].setMap(map);
+            $('ul').append('<li><a class="restaurant" href="javascript:restaurantClick(' + i + ')">' + markers[i].title + '</a></li>');
+        }
+    }
+}
+
+// Initialize
+initMap();
 

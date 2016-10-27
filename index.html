@@ -21,25 +21,25 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-3 col-lg-2">
-                    <h1>Cheap Eats Melbourne</h1>
+                    <h1>Cheap Eats Melbourne <span class="map-icon map-icon-restaurant"></span></h1>
                     <h3>20 Meals Under $20</h3>
+
                     <p>What cuisine you feelin like?</p>
-                    <select>
-                        <option value="all">All cuisines</option>
-                        <option value="african">African</option>
-                        <option value="asian">Asian</option>
-                        <option value="burgers">Burgers</option>
-                        <option value="dumplings">Dumplings</option>
-                        <option value="italian">Italian</option>
-                        <option value="japanese">Japanese</option>
-                        <option value="kebabs">Kebabs</option>
-                        <option value="korean">Korean</option>
-                        <option value="mexican">Mexican</option>
-                        <option value="pizza">Pizza</option>
-                        <option value="pubmeal">Pub Meal</option>
-                        <option value="russian">Russian</option>
-                        <option value="seafood">Seafood</option>
-                        <option value="thai">Thai</option>
+                    <select id="foodChoice" onchange="filterByCuisine(this.value);">>
+                        <option value="All">All cuisines</option>
+                        <option value="African">African</option>
+                        <option value="Asian">Asian</option>
+                        <option value="Burgers">Burgers</option>
+                        <option value="Italian">Italian</option>
+                        <option value="Japanese">Japanese</option>
+                        <option value="Kebabs">Kebabs</option>
+                        <option value="Korean">Korean</option>
+                        <option value="Mexican">Mexican</option>
+                        <option value="Pizza">Pizza</option>
+                        <option value="Pubmeal">Pub Meal</option>
+                        <option value="Russian">Russian</option>
+                        <option value="Seafood">Seafood</option>
+                        <option value="Thai">Thai</option>
                     </select>
                     <div id="restaurants">
                         <ul></ul>
@@ -66,7 +66,10 @@
 
     <script src="js/lib/knockout-3.2.0.js"></script>
 
+    <script src="js/map-icons.js"></script>
+
     <script src="js/app.js"></script>
 
     </body>
+
 </html>
