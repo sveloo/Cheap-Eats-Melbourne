@@ -3,7 +3,6 @@
 var map;
 var markers = [];
 
-
 function initMap() {
 
     var melbourne = {lat: -37.9701542, lng: 144.4927086};
@@ -15,26 +14,26 @@ function initMap() {
     });
 
     var locations = [
-        {title: 'Soi 38', location: {lat: -37.8124841, lng: 144.9697461}},
-        {title: 'ShanDong MaMa', location: {lat: -37.8126419, lng: 144.9651844}},
-        {title: 'Very Good Falafel', location: {lat: -37.7624218, lng: 144.9605451}},
-        {title: 'Biggie Smalls', location: {lat: -37.8057634, lng: 144.9811375}},
-        {title: 'Naked for Satan', location: {lat: -37.7987607, lng: 144.9760093}},
-        {title: 'Pellegrini\'s Espresso Bar', location: {lat: -37.8116955, lng: 144.9690115}},
-        {title: 'Grand Trailer Park Taverna', location: {lat: -37.8121679, lng: 144.970828}},
-        {title: 'Heartattack and Vine', location: {lat: -37.7976326, lng: 144.9649691}},
-        {title: 'Laksa King', location: {lat: -37.7878707, lng: 144.9274462}},
-        {title: 'Trippy Taco', location: {lat: -37.8065107, lng: 144.9802333}},
-        {title: 'Shujinko', location: {lat: -37.8113177, lng: 144.9649363}},
-        {title: 'Bimbo Deluxe', location: {lat: -37.7960887, lng: 144.9768523}},
-        {title: 'Arbory Bar and Eatery', location: {lat: -37.8189329, lng: 144.9639345}},
-        {title: 'Slice Girls West', location: {lat: -37.8018787, lng: 144.9045083}},
-        {title: 'Middle Fish', location: {lat: -37.802564, lng: 144.9568226}},
-        {title: 'Game Chicken', location: {lat: -37.8143223, lng: 144.9587169}},
-        {title: 'African Taste', location: {lat: -37.8037938, lng: 144.8899948}},
-        {title: 'Purple Peanuts Japanese Café', location: {lat: -37.8186653, lng: 144.9520687}},
-        {title: 'Katarina Zrinski Restaurant', location: {lat: -37.8043028, lng: 144.9023621}},
-        {title: 'Tiba\'s Lebanese Food', location: {lat: -37.7661628, lng: 144.9603235}},
+        {title: 'Soi 38', location: {lat: -37.8124841, lng: 144.9697461}, cuisine: 'Thai'},
+        {title: 'ShanDong MaMa', location: {lat: -37.8126419, lng: 144.9651844}, cuisine: 'Asian'},
+        {title: 'Very Good Falafel', location: {lat: -37.7624218, lng: 144.9605451}, cuisine: 'Kebabs'},
+        {title: 'Biggie Smalls', location: {lat: -37.8057634, lng: 144.9811375}, cuisine: 'Kebabs'},
+        {title: 'Naked for Satan', location: {lat: -37.7987607, lng: 144.9760093}, cuisine: 'Spanish'},
+        {title: 'Pellegrini\'s Espresso Bar', location: {lat: -37.8116955, lng: 144.9690115}, cuisine: 'Italian'},
+        {title: 'Grand Trailer Park Taverna', location: {lat: -37.8121679, lng: 144.970828}, cuisine: 'Burgers'},
+        {title: 'Heartattack and Vine', location: {lat: -37.7976326, lng: 144.9649691}, cuisine: 'Pub Meals'},
+        {title: 'Laksa King', location: {lat: -37.7878707, lng: 144.9274462}, cuisine: 'Asian'},
+        {title: 'Trippy Taco', location: {lat: -37.8065107, lng: 144.9802333}, cuisine: 'Mexican'},
+        {title: 'Shujinko', location: {lat: -37.8113177, lng: 144.9649363}, cuisine: 'Japanese'},
+        {title: 'Bimbo Deluxe', location: {lat: -37.7960887, lng: 144.9768523}, cuisine: 'Pizza'},
+        {title: 'Arbory Bar and Eatery', location: {lat: -37.8189329, lng: 144.9639345}, cuisine: 'Pub Meals'},
+        {title: 'Slice Girls West', location: {lat: -37.8018787, lng: 144.9045083}, cuisine: 'Burgers'},
+        {title: 'Middle Fish', location: {lat: -37.802564, lng: 144.9568226}, cuisine: 'Seafood'},
+        {title: 'Game Chicken', location: {lat: -37.8143223, lng: 144.9587169}, cuisine: 'Korean'},
+        {title: 'African Taste', location: {lat: -37.8037938, lng: 144.8899948}, cuisine: 'African'},
+        {title: 'Purple Peanuts Japanese Café', location: {lat: -37.8186653, lng: 144.9520687}, cuisine: 'Japanese'},
+        {title: 'Katarina Zrinski Restaurant', location: {lat: -37.8043028, lng: 144.9023621}, cuisine: 'Russian'},
+        {title: 'Tiba\'s Lebanese Food', location: {lat: -37.7661628, lng: 144.9603235}, cuisine: 'Kebabs'},
     ];
 
     var largeInfowindow = new google.maps.InfoWindow();
@@ -54,7 +53,7 @@ function initMap() {
         id: i
         });
 
-        // Push the marker to our array of markers.
+        // Push the marker into the markers array.
         markers.push(marker);
 
         // Create an onclick event to open an infowindow at each marker.
@@ -62,34 +61,41 @@ function initMap() {
             populateInfoWindow(this, largeInfowindow);
         });
 
-        bounds.extend(markers[i].position);
+        // Display all the restaurants as a list and make them clickable and call the relevant info window
+        $('ul').append('<li><a class="restaurant" href="javascript:restaurantClick(' + i + ')">' + locations[i].title + '</a></li>');
 
-        // Display all the restaurants as a list
-        $("#restaurants ul").append('<li class="restaurant"><a href="#">' + locations[i].title + '</a></li>');
+        // Set the marker boundaries.
+        bounds.extend(markers[i].position);
 
     }
 
-    // Extend the boundaries of the map for each marker
+    // Extend the boundaries of the map for each marker.
     map.fitBounds(bounds);
 
 }
 
 
-// This function populates the infowindow when the marker is clicked. We'll only allow
-// one infowindow which will open at the marker that is clicked, and populate based
-// on that markers position.
+// This popups the restaurant info window.
+function restaurantClick(i) {
+    console.log('Click!');
+    google.maps.event.trigger(markers[i], 'click');
+}
+
+
+// Open up and populate the info window when the marker is clicked.
 function populateInfoWindow(marker, infowindow) {
 // Check to make sure the infowindow is not already opened on this marker.
     if (infowindow.marker != marker) {
         infowindow.marker = marker;
-        infowindow.setContent('<div>' + marker.title + '</div>');
+        infowindow.setContent('<div><h3>' + marker.title + '</h3></div>');
         infowindow.open(map, marker);
         // Make sure the marker property is cleared if the infowindow is closed.
-        infowindow.addListener('closeclick',function(){
-            infowindow.setMarker(null);
+        infowindow.addListener('closeclick', function() {
+        infowindow.marker = null;
         });
     }
 }
+
 
 // This function will loop through the markers array and display them all.
 function showListings() {
@@ -102,6 +108,7 @@ function showListings() {
     map.fitBounds(bounds);
 }
 
+
 // This function will loop through the listings and hide them all.
 function hideListings() {
     for (var i = 0; i < markers.length; i++) {
@@ -109,10 +116,17 @@ function hideListings() {
     }
 }
 
-// When the restaurant in the list is clicked open the Google Map info window
-// $('li .restaurant a').click(function() {
-//     populateInfoWindow(this, largeInfowindow);
-// });
 
+// Initialize
 initMap();
+
+
+// This is a simple *viewmodel* - JavaScript that defines the data and behavior of your UI
+function AppViewModel() {
+
+}
+
+// Activates knockout.js
+ko.applyBindings(new AppViewModel());
+
 
