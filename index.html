@@ -1,28 +1,53 @@
 <!DOCTYPE html>
-<html lang="EN">
+<html lang="en">
     <head>
         <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+
         <meta name="description" content="A Google Map of your neighbourhood">
         <meta name="author" content="Sanjeev Veloo">
 
-        <link rel="stylesheet" href="styles/styles.css">
+        <title>20/20 Cheap Eats Melbourne : 20 Meals Under 20 bucks!</title>
+
+        <!-- Bootstrap CSS -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom styles -->
+        <link rel="stylesheet" href="css/styles.css">
 
     </head>
     <body>
 
-        <header>
-            <h3>Melbourne Cheap Eats Under 20 Bucks!</h3>
-        </header>
+        <div class="container-fluid">
 
-        <section>
-            <div id="map"></div>
-        </section>
+            <div class="row">
+
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-2">
+                    <h1>20/20 Cheap Eats Melboourne</h1>
+                    <p>20 Meals Under 20 bucks!</p>
+                    <div id="restaurants">
+                        <ul></ul>
+                    </div>
+                    <div>
+                        <input onclick="hideListings();" type=button value="Hide Markers">
+                        <input onclick="showListings();" type=button value="Show Markers">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10">
+                    <div id="map"></div>
+                </div>
+            </div>
+        </div>
 
     <!--TODO: Load the JS API ASYNCHRONOUSLY below.-->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBSXrHb5YlY_NrOQF7Q6cSAjRViu8mhgdo&callback=initMap" async defer></script>
 
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
 
     <script src="js/lib/knockout-3.2.0.js"></script>
 

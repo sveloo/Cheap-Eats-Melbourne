@@ -6,9 +6,12 @@ var markers = [];
 
 function initMap() {
 
+    var melbourne = {lat: -37.9701542, lng: 144.4927086};
+
     map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: -37.9701542, lng: 144.4927086},
-        zoom: 15
+        center: melbourne,
+        mapTypeId: 'terrain',
+        zoom: 16
     });
 
     var locations = [
@@ -34,7 +37,7 @@ function initMap() {
         {title: 'Tiba\'s Lebanese Food', location: {lat: -37.7661628, lng: 144.9603235}},
     ];
 
-    // var largeInfowindow = new google.maps.InfoWindow();
+    var largeInfowindow = new google.maps.InfoWindow();
     var bounds = new google.maps.LatLngBounds();
 
     // The following group uses the location array to create an array of markers on initialize.
@@ -55,11 +58,14 @@ function initMap() {
         markers.push(marker);
 
         // Create an onclick event to open an infowindow at each marker.
-        // marker.addListener('click', function() {
-        //     populateInfoWindow(this, largeInfowindow);
-        // });
+        marker.addListener('click', function() {
+            populateInfoWindow(this, largeInfowindow);
+        });
 
         bounds.extend(markers[i].position);
+
+        // Display all the restaurants as a list
+        $("#restaurants ul").append('<li class="restaurant"><a href="#">' + locations[i].title + '</a></li>');
 
     }
 
@@ -67,6 +73,46 @@ function initMap() {
     map.fitBounds(bounds);
 
 }
+
+
+// This function populates the infowindow when the marker is clicked. We'll only allow
+// one infowindow which will open at the marker that is clicked, and populate based
+// on that markers position.
+function populateInfoWindow(marker, infowindow) {
+// Check to make sure the infowindow is not already opened on this marker.
+    if (infowindow.marker != marker) {
+        infowindow.marker = marker;
+        infowindow.setContent('<div>' + marker.title + '</div>');
+        infowindow.open(map, marker);
+        // Make sure the marker property is cleared if the infowindow is closed.
+        infowindow.addListener('closeclick',function(){
+            infowindow.setMarker(null);
+        });
+    }
+}
+
+// This function will loop through the markers array and display them all.
+function showListings() {
+    var bounds = new google.maps.LatLngBounds();
+    // Extend the boundaries of the map for each marker and display the marker
+    for (var i = 0; i < markers.length; i++) {
+          markers[i].setMap(map);
+          bounds.extend(markers[i].position);
+    }
+    map.fitBounds(bounds);
+}
+
+// This function will loop through the listings and hide them all.
+function hideListings() {
+    for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(null);
+    }
+}
+
+// When the restaurant in the list is clicked open the Google Map info window
+// $('li .restaurant a').click(function() {
+//     populateInfoWindow(this, largeInfowindow);
+// });
 
 initMap();
 
