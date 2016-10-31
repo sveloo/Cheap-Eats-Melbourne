@@ -45,8 +45,8 @@
                         <ul></ul>
                     </div>
                     <div>
-                        <input onclick="hideListings();" type=button value="Hide Markers">
-                        <input onclick="showListings();" type=button value="Show Markers">
+                        <button data-bind='click: hideMarkers'>Hide Markers</button>
+                        <button data-bind='click: showMarkers'>Show Markers</button>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10">
@@ -56,7 +56,7 @@
         </div>
 
     <!--TODO: Load the JS API ASYNCHRONOUSLY below.-->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBSXrHb5YlY_NrOQF7Q6cSAjRViu8mhgdo&callback=initMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBSXrHb5YlY_NrOQF7Q6cSAjRViu8mhgdo" async defer></script>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
