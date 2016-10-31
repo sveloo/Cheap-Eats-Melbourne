@@ -1,10 +1,9 @@
 'use strict';
 
-var map;
-var markers = [];
+function mapViewModel() {
 
-function initMap() {
-
+    var map;
+    var markers = [];
     var melbourne = {lat: -37.9701542, lng: 144.4927086};
 
     map = new google.maps.Map(document.getElementById('map'), {
@@ -76,75 +75,74 @@ function initMap() {
     // Extend the boundaries of the map for each marker.
     map.fitBounds(bounds);
 
-}
 
-
-// This popups the restaurant info window by clicking the restaurant in the restaurant list.
-function restaurantClick(i) {
-    google.maps.event.trigger(markers[i], 'click');
-}
-
-
-// Open up and populate the info window when the marker is clicked.
-function populateInfoWindow(marker, infowindow) {
-// Check to make sure the infowindow is not already opened on this marker.
-    if (infowindow.marker != marker) {
-        infowindow.marker = marker;
-        infowindow.setContent('<div><h4>' + marker.title + '</h4></div>');
-        infowindow.open(map, marker);
-        // Make sure the marker property is cleared if the infowindow is closed.
-        infowindow.addListener('closeclick', function() {
-        infowindow.marker = null;
-        });
+    // This popups the restaurant info window by clicking the restaurant in the restaurant list.
+    function restaurantClick(i) {
+        google.maps.event.trigger(markers[i], 'click');
     }
-}
 
 
-// This function will loop through the markers array and display them all.
-function showListings() {
-    var bounds = new google.maps.LatLngBounds();
-    // Extend the boundaries of the map for each marker and display the marker
-    for (var i = 0; i < markers.length; i++) {
-        markers[i].setMap(map);
-        bounds.extend(markers[i].position);
-    }
-    map.fitBounds(bounds);
-}
-
-
-// This function will loop through the listings and hide them all.
-function hideListings() {
-    for (var i = 0; i < markers.length; i++) {
-        markers[i].setMap(null);
-    }
-}
-
-
-function clearRestaurantList() {
-    $('li').remove();
-}
-
-
-// This function will filter the markers by their cuisine choice
-function filterByCuisine(foodChoice) {
-    // Extend the boundaries of the map for each marker and display the marker
-    console.log(foodChoice);
-    hideListings();
-    clearRestaurantList();
-    for (var i = 0; i < markers.length; i++) {
-        if (foodChoice == "All") {
-            showListings();
-            $('ul').append('<li><a class="restaurant" href="javascript:restaurantClick(' + i + ')">' + markers[i].title + '</a></li>');
+    // Open up and populate the info window when the marker is clicked.
+    function populateInfoWindow(marker, infowindow) {
+    // Check to make sure the infowindow is not already opened on this marker.
+        if (infowindow.marker != marker) {
+            infowindow.marker = marker;
+            infowindow.setContent('<div><h4>' + marker.title + '</h4></div>');
+            infowindow.open(map, marker);
+            // Make sure the marker property is cleared if the infowindow is closed.
+            infowindow.addListener('closeclick', function() {
+            infowindow.marker = null;
+            });
         }
+    }
 
-        else if (markers[i].cuisine == foodChoice) {
-            console.log(foodChoice + ' is a match!');
+
+    // This function will loop through the markers array and display them all.
+    function showListings() {
+        var bounds = new google.maps.LatLngBounds();
+        // Extend the boundaries of the map for each marker and display the marker
+        for (var i = 0; i < markers.length; i++) {
             markers[i].setMap(map);
-            $('ul').append('<li><a class="restaurant" href="javascript:restaurantClick(' + i + ')">' + markers[i].title + '</a></li>');
+            bounds.extend(markers[i].position);
+        }
+        map.fitBounds(bounds);
+    }
+
+
+    // This function will loop through the listings and hide them all.
+    function hideListings() {
+        for (var i = 0; i < markers.length; i++) {
+            markers[i].setMap(null);
         }
     }
+
+    // This function clears the list of restaurants
+    function clearRestaurantList() {
+        $('li').remove();
+    }
+
+
+    // This function will filter the markers by their cuisine choice
+    function filterByCuisine(foodChoice) {
+        // Extend the boundaries of the map for each marker and display the marker
+        console.log(foodChoice);
+        hideListings();
+        clearRestaurantList();
+        for (var i = 0; i < markers.length; i++) {
+            if (foodChoice == "All") {
+                showListings();
+                $('ul').append('<li><a class="restaurant" href="javascript:restaurantClick(' + i + ')">' + markers[i].title + '</a></li>');
+            }
+
+            else if (markers[i].cuisine == foodChoice) {
+                console.log(foodChoice + ' is a match!');
+                markers[i].setMap(map);
+                $('ul').append('<li><a class="restaurant" href="javascript:restaurantClick(' + i + ')">' + markers[i].title + '</a></li>');
+            }
+        }
+    }
+
 }
 
-// Initialize
-initMap();
+ko.applyBindings(new mapViewModel());
 
