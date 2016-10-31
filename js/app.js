@@ -15,6 +15,7 @@ function initMap() {
     ko.applyBindings(vm);
 }
 
+
 // Error call handle
 function googleError() {
     alert('For some reason Google Maps isn\'t loading, have you checked your connection?')
@@ -23,8 +24,7 @@ function googleError() {
 
 // Restaurants data consisting of name, coords (lat & lng coordinates) and cuisine category for filtering.
 // This list taken from a recent review by TimeOut magazine of the top 20 restaurants in Melbourne with meals under $20.
-
-var restaurantArray = ko.observableArray([
+var restaurantArray = [
     {name: 'Soi 38', coords: {lat: -37.8124841, lng: 144.9697461}, cuisine: 'Thai'},
     {name: 'ShanDong MaMa', coords: {lat: -37.8126419, lng: 144.9651844}, cuisine: 'Asian'},
     {name: 'Very Good Falafel', coords: {lat: -37.7624218, lng: 144.9605451}, cuisine: 'Kebabs'},
@@ -45,20 +45,21 @@ var restaurantArray = ko.observableArray([
     {name: 'Purple Peanuts Japanese Café', coords: {lat: -37.8186653, lng: 144.9520687}, cuisine: 'Japanese'},
     {name: 'Katarina Zrinski Restaurant', coords: {lat: -37.8043028, lng: 144.9023621}, cuisine: 'Russian'},
     {name: 'Tiba\'s Lebanese Food', coords: {lat: -37.7661628, lng: 144.9603235}, cuisine: 'Kebabs'}
-]);
+];
 
 
 var ViewModel = function() {
 
     var self = this;
 
+    self.restaurantArray = ko.observableArray(restaurantArray);
+
     self.restaurantArray().forEach(function(restaurant) {
         var marker = new google.maps.Marker({
             map: map,
             position: restaurantArray.coords,
             title: restaurantArray.name,
-            animation: google.maps.Animation.DROP,
-            id: i
+            animation: google.maps.Animation.DROP
         });
     });
 
