@@ -25,8 +25,8 @@
                     <h3>20 Meals Under $20</h3>
 
                     <p>What cuisine you feelin like?</p>
-                    <select data-bind="options: restaurants.cuisine">
-                    <option value="All">All cuisines</option>
+                    <select>
+<!--                     <option value="All">All cuisines</option>
                         <option value="African">African</option>
                         <option value="Asian">Asian</option>
                         <option value="Burgers">Burgers</option>
@@ -39,14 +39,14 @@
                         <option value="Pubmeal">Pub Meal</option>
                         <option value="Russian">Russian</option>
                         <option value="Seafood">Seafood</option>
-                        <option value="Thai">Thai</option>
+                        <option value="Thai">Thai</option> -->
                     </select>
                     <div id="restaurants">
                         <ul></ul>
                     </div>
                     <div>
-                        <button data-bind='click: hideMarkers'>Hide Markers</button>
-                        <button data-bind='click: showMarkers'>Show Markers</button>
+                        <button>Hide Markers</button>
+                        <button>Show Markers</button>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10">
@@ -55,18 +55,15 @@
             </div>
         </div>
 
-    <!--TODO: Load the JS API ASYNCHRONOUSLY below.-->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBSXrHb5YlY_NrOQF7Q6cSAjRViu8mhgdo" async defer></script>
-
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
 
     <script src="js/lib/knockout-3.2.0.js"></script>
 
     <script src="js/app.js"></script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBSXrHb5YlY_NrOQF7Q6cSAjRViu8mhgdo&callback=initMap" async defer></script>
 
     </body>
 
