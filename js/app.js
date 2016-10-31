@@ -1,18 +1,10 @@
 'use strict';
 
-var mapViewModel = function() {
+var ViewModel = function() {
 
-    var map;
-    var markers = [];
-    var melbourne = {lat: -37.9701542, lng: 144.4927086};
+    var self = this;
 
-    map = new google.maps.Map(document.getElementById('map'), {
-        center: melbourne,
-        mapTypeId: 'terrain',
-        zoom: 16
-    });
-
-    var locations = [
+    var restaurants = ko.observableArray([
         {title: 'Soi 38', location: {lat: -37.8124841, lng: 144.9697461}, cuisine: 'Thai'},
         {title: 'ShanDong MaMa', location: {lat: -37.8126419, lng: 144.9651844}, cuisine: 'Asian'},
         {title: 'Very Good Falafel', location: {lat: -37.7624218, lng: 144.9605451}, cuisine: 'Kebabs'},
@@ -33,18 +25,28 @@ var mapViewModel = function() {
         {title: 'Purple Peanuts Japanese Café', location: {lat: -37.8186653, lng: 144.9520687}, cuisine: 'Japanese'},
         {title: 'Katarina Zrinski Restaurant', location: {lat: -37.8043028, lng: 144.9023621}, cuisine: 'Russian'},
         {title: 'Tiba\'s Lebanese Food', location: {lat: -37.7661628, lng: 144.9603235}, cuisine: 'Kebabs'}
-    ];
+    ]);
+
+    var map;
+    var markers = [];
+    var melbourne = {lat: -37.9701542, lng: 144.4927086};
+
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: melbourne,
+        mapTypeId: 'terrain',
+        zoom: 16
+    });
 
     var largeInfowindow = new google.maps.InfoWindow();
     var bounds = new google.maps.LatLngBounds();
 
     // The following group uses the location array to create an array of markers on initialize.
-    for (var i = 0; i < locations.length; i++) {
+    for (var i = 0; i < restaurants.length; i++) {
 
         // Get the position from the location array.
-        var position = locations[i].location;
-        var title = locations[i].title;
-        var cuisine = locations[i].cuisine;
+        var position = restaurants[i].location;
+        var title = restaurants[i].title;
+        var cuisine = restaurants[i].cuisine;
 
         // Create a marker per location, and put into markers array.
         var marker = new google.maps.Marker({
@@ -65,7 +67,7 @@ var mapViewModel = function() {
         });
 
         // Display all the restaurants as a list and make them clickable and call the relevant info window
-        $('ul').append('<li><a class="restaurant" href="javascript:restaurantClick(' + i + ')">' + locations[i].title + '</a></li>');
+        $('ul').append('<li><a class="restaurant" href="javascript:restaurantClick(' + i + ')">' + restaurants[i].title + '</a></li>');
 
         // Set the marker boundaries.
         bounds.extend(markers[i].position);
@@ -122,7 +124,7 @@ var mapViewModel = function() {
         // Extend the boundaries of the map for each marker and display the marker
         console.log(foodChoice);
         hideListings();
-        clearRestaurantList();
+        $('li').remove();
         for (var i = 0; i < markers.length; i++) {
             if (foodChoice == "All") {
                 showListings();
@@ -139,6 +141,6 @@ var mapViewModel = function() {
 
 }
 
-
-ko.applyBindings(new mapViewModel());
+var vm = new ViewModel();
+ko.applyBindings(vm);
 

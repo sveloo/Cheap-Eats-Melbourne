@@ -25,8 +25,8 @@
                     <h3>20 Meals Under $20</h3>
 
                     <p>What cuisine you feelin like?</p>
-                    <select id="foodChoice" onchange="filterByCuisine(this.value);">>
-                        <option value="All">All cuisines</option>
+                    <select data-bind="options: restaurants.cuisine">
+                    <option value="All">All cuisines</option>
                         <option value="African">African</option>
                         <option value="Asian">Asian</option>
                         <option value="Burgers">Burgers</option>
