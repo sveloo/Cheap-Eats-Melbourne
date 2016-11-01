@@ -2,7 +2,9 @@
 
 // Initialise the Google Map
 var map;
+var marker;
 var vm;
+
 
 function initMap() {
 
@@ -77,6 +79,9 @@ var ViewModel = function() {
             animation: google.maps.Animation.DROP
         });
 
+        // // Create a reference to the restaurant marker object
+        restaurant.marker = marker;
+
         // Push the marker into the markers array.
         markers.push(marker);
 
@@ -84,21 +89,23 @@ var ViewModel = function() {
         bounds.extend(marker.position);
         map.fitBounds(bounds);
 
-        // Create an onclick event to open an infowindow at each marker.
-        restaurant.marker = marker;
+        // Create the layout of the info window.
         var contentString = '<div><h4>' + marker.title + '</h4><p>' + marker.cuisine + '</p>';
         var infowindow = new google.maps.InfoWindow({
-                content: contentString
+            content: contentString
         });
 
+        // Create an onclick event to open an infowindow at each marker.
         marker.addListener('click', function() {
-            console.log("Click");
-            console.log(this);
-            infowindow.open(map, marker);
+            self.populateInfoWindow(marker, infowindow);
         });
+
+        self.populateInfoWindow = function (marker, infowindow){
+            console.log(marker);
+            infowindow.open(map, marker);
+        };
 
     });
-
 
 
 // Closes the ViewModel
