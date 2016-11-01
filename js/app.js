@@ -4,6 +4,7 @@
 var map;
 
 function initMap() {
+
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: -37.9701542, lng: 144.4927086},
         mapTypeId: 'terrain',
@@ -52,16 +53,35 @@ var ViewModel = function() {
 
     var self = this;
 
+    // An array to store all the markers and corresponsing Google Map API marker info.
+    var markers = [];
+
+    // Setting boundaries using the Google Maps API
+    var bounds = new google.maps.LatLngBounds();
+
+    // Make the restaurant Array an observable array in this instance
     self.restaurantArray = ko.observableArray(restaurantArray);
 
+    // Loop through the restaurantArray to create the markers
     self.restaurantArray().forEach(function(restaurant) {
         var marker = new google.maps.Marker({
             map: map,
-            position: restaurantArray.coords,
-            title: restaurantArray.name,
+            position: restaurant.coords,
+            title: restaurant.name,
+            // Animate the dropping of each marker pin
             animation: google.maps.Animation.DROP
         });
+
+        // Push the marker into the markers array.
+        markers.push(marker);
+
+        // Fit the map to the boundaries of the markers
+        bounds.extend(marker.position);
+        map.fitBounds(bounds);
+
     });
+
+
 
 }
 
