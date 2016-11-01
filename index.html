@@ -25,25 +25,14 @@
                     <h3>20 Meals Under $20</h3>
 
                     <p>What cuisine you feelin like?</p>
-                    <select>
-<!--                     <option value="All">All cuisines</option>
-                        <option value="African">African</option>
-                        <option value="Asian">Asian</option>
-                        <option value="Burgers">Burgers</option>
-                        <option value="Italian">Italian</option>
-                        <option value="Japanese">Japanese</option>
-                        <option value="Kebabs">Kebabs</option>
-                        <option value="Korean">Korean</option>
-                        <option value="Mexican">Mexican</option>
-                        <option value="Pizza">Pizza</option>
-                        <option value="Pubmeal">Pub Meal</option>
-                        <option value="Russian">Russian</option>
-                        <option value="Seafood">Seafood</option>
-                        <option value="Thai">Thai</option> -->
-                    </select>
+                    <select></select>
+
                     <div id="restaurants">
-                        <ul></ul>
+                        <ul data-bind="foreach: restaurantArray">
+                            <li data-bind="text: name"></li>
+                        </ul>
                     </div>
+
                     <div>
                         <button>Hide Markers</button>
                         <button>Show Markers</button>
@@ -59,11 +48,11 @@
 
     <script src="js/bootstrap.min.js"></script>
 
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBSXrHb5YlY_NrOQF7Q6cSAjRViu8mhgdo&callback=initMap" async defer></script>
+
     <script src="js/lib/knockout-3.2.0.js"></script>
 
     <script src="js/app.js"></script>
-
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBSXrHb5YlY_NrOQF7Q6cSAjRViu8mhgdo&callback=initMap" async defer></script>
 
     </body>
 
