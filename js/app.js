@@ -25,6 +25,8 @@ function googleError() {
 
 // Restaurants data consisting of name, coords (lat & lng coordinates) and cuisine category for filtering.
 // This list taken from a recent review by TimeOut magazine of the top 20 restaurants in Melbourne with meals under $20.
+
+// Model information.
 var restaurantArray = [
     {name: 'Soi 38', coords: {lat: -37.8124841, lng: 144.9697461}, cuisine: 'Thai'},
     {name: 'ShanDong MaMa', coords: {lat: -37.8126419, lng: 144.9651844}, cuisine: 'Asian'},
@@ -53,11 +55,15 @@ var ViewModel = function() {
 
     var self = this;
 
-    // An array to store all the markers and corresponsing Google Map API marker info.
+    // An array to store all the markers and corresponsing Google Map API marker information.
     var markers = [];
 
-    // Setting boundaries using the Google Maps API
+    // Setting up boundaries using the Google Maps API documentation
     var bounds = new google.maps.LatLngBounds();
+
+    // Setting up InfoWindow as per Google Maps API documentation
+
+    var restaurantInfowindow = new google.maps.InfoWindow;
 
     // Make the restaurant Array an observable array in this instance
     self.restaurantArray = ko.observableArray(restaurantArray);
@@ -68,6 +74,7 @@ var ViewModel = function() {
             map: map,
             position: restaurant.coords,
             title: restaurant.name,
+            cuisine: restaurant.cuisine,
             // Animate the dropping of each marker pin
             animation: google.maps.Animation.DROP
         });
@@ -75,15 +82,64 @@ var ViewModel = function() {
         // Push the marker into the markers array.
         markers.push(marker);
 
-        // Fit the map to the boundaries of the markers
+        // Fit the map to the boundaries of the markers.
         bounds.extend(marker.position);
         map.fitBounds(bounds);
+
+        // Create an onclick event to open an infowindow at each marker.
+        marker.addListener('click', function() {
+          populateInfoWindow(this, restaurantInfowindow);
+        });
+
 
     });
 
 
+    // Got this bit from the Udacity coursework.
+    function populateInfoWindow(marker, infowindow) {
 
+    // Check to make sure the infowindow is not already opened on this marker.
+        if (infowindow.marker != marker) {
+            infowindow.marker = marker;
+            infowindow.setContent('<div><h4>' + marker.title + '</h4><p>' + marker.cuisine + '</p>');
+            infowindow.open(map, marker);
+
+            // Make sure the marker property is cleared if the infowindow is closed.
+            infowindow.addListener('closeclick', function() {
+                infowindow.marker = null;
+            });
+        };
+    };
+
+
+    // function drop() {
+    //     clearMarkers();
+    //     for (var i = 0; i < restaurants.length; i++) {
+    //       addMarkerWithTimeout(restaurants[i], i * 200);
+    //     }
+    //   }
+
+    //   function addMarkerWithTimeout(position, timeout) {
+    //     window.setTimeout(function() {
+    //       markers.push(new google.maps.Marker({
+    //         position: position,
+    //         map: map,
+    //         animation: google.maps.Animation.DROP
+    //       }));
+    //     }, timeout);
+    //   }
+
+    //   function clearMarkers() {
+    //     for (var i = 0; i < markers.length; i++) {
+    //       markers[i].setMap(null);
+    //     }
+    //   }
+
+
+// Closes the ViewModel
 }
+
+
 
 
 

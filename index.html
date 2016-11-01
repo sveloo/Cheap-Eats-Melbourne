@@ -29,7 +29,7 @@
 
                     <div id="restaurants">
                         <ul data-bind="foreach: restaurantArray">
-                            <li data-bind="text: name"></li>
+                            <li><a href="#" data-bind="text: name, click: $root.populateInfoWindow"></a></li>
                         </ul>
                     </div>
 
