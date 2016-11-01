@@ -62,13 +62,8 @@ var ViewModel = function() {
     // Setting up boundaries using the Google Maps API documentation
     var bounds = new google.maps.LatLngBounds();
 
-    // Setting up InfoWindow as per Google Maps API documentation
-
-    var restaurantInfowindow = new google.maps.InfoWindow;
-
     // Make the restaurant Array an observable array in this instance
     self.restaurantArray = ko.observableArray(restaurantArray);
-
 
     // Loop through the restaurantArray to create the markers
     self.restaurantArray().forEach(function(restaurant) {
@@ -82,12 +77,6 @@ var ViewModel = function() {
             animation: google.maps.Animation.DROP
         });
 
-        restaurant.marker = marker;
-        var contentString = '<div><h4>' + marker.title + '</h4><p>' + marker.cuisine + '</p>';
-        var infowindow = new google.maps.InfoWindow({
-                content: contentString
-        });
-
         // Push the marker into the markers array.
         markers.push(marker);
 
@@ -96,6 +85,12 @@ var ViewModel = function() {
         map.fitBounds(bounds);
 
         // Create an onclick event to open an infowindow at each marker.
+        restaurant.marker = marker;
+        var contentString = '<div><h4>' + marker.title + '</h4><p>' + marker.cuisine + '</p>';
+        var infowindow = new google.maps.InfoWindow({
+                content: contentString
+        });
+
         marker.addListener('click', function() {
             console.log("Click");
             console.log(this);
