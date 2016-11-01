@@ -88,16 +88,17 @@ var ViewModel = function() {
 
         // Create an onclick event to open an infowindow at each marker.
         marker.addListener('click', function() {
-          populateInfoWindow(this, restaurantInfowindow);
+            self.populateInfoWindow(this, restaurantInfowindow);
         });
+
 
 
     });
 
 
     // Got this bit from the Udacity coursework.
-    function populateInfoWindow(marker, infowindow) {
-
+    this.populateInfoWindow = function(marker, infowindow) {
+        console.log("click");
     // Check to make sure the infowindow is not already opened on this marker.
         if (infowindow.marker != marker) {
             infowindow.marker = marker;
@@ -109,31 +110,9 @@ var ViewModel = function() {
                 infowindow.marker = null;
             });
         };
+
     };
 
-
-    // function drop() {
-    //     clearMarkers();
-    //     for (var i = 0; i < restaurants.length; i++) {
-    //       addMarkerWithTimeout(restaurants[i], i * 200);
-    //     }
-    //   }
-
-    //   function addMarkerWithTimeout(position, timeout) {
-    //     window.setTimeout(function() {
-    //       markers.push(new google.maps.Marker({
-    //         position: position,
-    //         map: map,
-    //         animation: google.maps.Animation.DROP
-    //       }));
-    //     }, timeout);
-    //   }
-
-    //   function clearMarkers() {
-    //     for (var i = 0; i < markers.length; i++) {
-    //       markers[i].setMap(null);
-    //     }
-    //   }
 
 
 // Closes the ViewModel

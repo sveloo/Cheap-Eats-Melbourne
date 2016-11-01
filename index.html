@@ -25,7 +25,9 @@
                     <h3>20 Meals Under $20</h3>
 
                     <p>What cuisine you feelin like?</p>
-                    <select></select>
+                    <select data-bind="foreach: restaurantArray">
+                        <option data-bind="text: cuisine"></option>
+                    </select>
 
                     <div id="restaurants">
                         <ul data-bind="foreach: restaurantArray">
