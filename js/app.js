@@ -2,6 +2,7 @@
 
 // Initialise the Google Map
 var map;
+var vm;
 
 function initMap() {
 
@@ -12,7 +13,7 @@ function initMap() {
     });
 
     //Initialise Knockout
-    var vm = new ViewModel();
+    vm = new ViewModel();
     ko.applyBindings(vm);
 }
 
@@ -68,8 +69,10 @@ var ViewModel = function() {
     // Make the restaurant Array an observable array in this instance
     self.restaurantArray = ko.observableArray(restaurantArray);
 
+
     // Loop through the restaurantArray to create the markers
     self.restaurantArray().forEach(function(restaurant) {
+
         var marker = new google.maps.Marker({
             map: map,
             position: restaurant.coords,
@@ -77,6 +80,12 @@ var ViewModel = function() {
             cuisine: restaurant.cuisine,
             // Animate the dropping of each marker pin
             animation: google.maps.Animation.DROP
+        });
+
+        restaurant.marker = marker;
+        var contentString = '<div><h4>' + marker.title + '</h4><p>' + marker.cuisine + '</p>';
+        var infowindow = new google.maps.InfoWindow({
+                content: contentString
         });
 
         // Push the marker into the markers array.
@@ -88,30 +97,12 @@ var ViewModel = function() {
 
         // Create an onclick event to open an infowindow at each marker.
         marker.addListener('click', function() {
-            self.populateInfoWindow(this, restaurantInfowindow);
+            console.log("Click");
+            console.log(this);
+            infowindow.open(map, marker);
         });
 
-
-
     });
-
-
-    // Got this bit from the Udacity coursework.
-    this.populateInfoWindow = function(marker, infowindow) {
-        console.log("click");
-    // Check to make sure the infowindow is not already opened on this marker.
-        if (infowindow.marker != marker) {
-            infowindow.marker = marker;
-            infowindow.setContent('<div><h4>' + marker.title + '</h4><p>' + marker.cuisine + '</p>');
-            infowindow.open(map, marker);
-
-            // Make sure the marker property is cleared if the infowindow is closed.
-            infowindow.addListener('closeclick', function() {
-                infowindow.marker = null;
-            });
-        };
-
-    };
 
 
 
