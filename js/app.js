@@ -102,11 +102,12 @@ var ViewModel = function() {
 
         self.populateInfoWindow = function (marker, restaurantInfoWindow){
             console.log("Click!")
-            console.log(this)
             console.log(marker);
             console.log(this.marker);
             restaurantInfoWindow.open(map, marker);
         };
+
+        // google.maps.event.trigger(markers, 'click');
 
     });
 
