@@ -101,6 +101,8 @@ var ViewModel = function() {
         });
 
         self.populateInfoWindow = function (marker, infowindow){
+            console.log("Click!")
+            console.log(this);
             console.log(marker);
             infowindow.open(map, marker);
         };
