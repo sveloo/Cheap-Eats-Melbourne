@@ -136,6 +136,10 @@ var ViewModel = function() {
             var encodedSignature = oauthSignature.generate('GET', yelp_url, parameters, YELP_KEY_SECRET, YELP_TOKEN_SECRET);
             parameters.oauth_signature = encodedSignature;
 
+            // Variables for Yelp Request
+            var rating = marker.rating;
+            parameters.rating = rating;
+
             var settings = {
                 url: yelp_url,
                 data: parameters,
@@ -145,7 +149,7 @@ var ViewModel = function() {
                     // Do stuff with results
                     console.log("Yelp! Success");
                     // Set the layout of the infowindow
-                    contentString = '<div><h4>' + marker.title + '</h4><p>' + marker.cuisine + '</p>' + '<p>Yelp rating: ' + marker.rating + '</p></div>';
+                    contentString = '<div><h4>' + marker.title + '</h4><p>' + marker.cuisine + '</p>' + '<p>Yelp rating: ' + rating + '</p></div>';
                     // Open the infowindow and load the layout
                     restaurantInfoWindow.open(map, marker);
                     restaurantInfoWindow.setContent(contentString);
