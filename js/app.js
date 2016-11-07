@@ -110,18 +110,13 @@ var ViewModel = function() {
 
         // Create an onclick event to open an infowindow at each marker.
         marker.addListener('click', function() {
-            // Set the layout of the infowindow
-            contentString = '<div><h4>' + marker.title + '</h4><p>' + marker.cuisine + '</p></div>';
-            // Open the infowindow and load the layout
-            restaurantInfoWindow.open(map, marker);
-            restaurantInfoWindow.setContent(contentString);
 
             // YELP API AUTHENTICATION
             function nonce_generate() {
                 return (Math.floor(Math.random() * 1e12).toString());
             }
 
-            var yelp_url = 'https://api.yelp.com/v2/search/?location=Melbourne, VIC, Australia&sort=2&limit=20&cc=AU&category_filter=restaurants';
+            var yelp_url = 'https://api.yelp.com/v2/search/?term=' + marker.title + '&location=Melbourne, Australia&limit=1&radius_filter=10000&cc=AU&category_filter=restaurants';
 
             var YELP_KEY = 'khBkEOW5FohZSnMNSp9NlQ',
                 YELP_TOKEN = 'sv3hcY_HyOH2WdjWuEjCHbDXhhLwnz_X',
@@ -149,6 +144,11 @@ var ViewModel = function() {
                 success: function(results) {
                     // Do stuff with results
                     console.log("Yelp! Success");
+                    // Set the layout of the infowindow
+                    contentString = '<div><h4>' + marker.title + '</h4><p>' + marker.cuisine + '</p>' + '<p>Yelp rating: ' + marker.rating + '</p></div>';
+                    // Open the infowindow and load the layout
+                    restaurantInfoWindow.open(map, marker);
+                    restaurantInfoWindow.setContent(contentString);
                 },
                 error: function() {
                     // Do stuff on fail
