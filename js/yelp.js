@@ -14,8 +14,8 @@ var parameters = {
     callback: 'cb'              // This is crucial to include for jsonp implementation in AJAX or else the oauth-signature will be wrong.
 };
 
-var encodedSignature = oauthSignature.generate('GET',yelp_url, parameters, 'vPFLQCN_HH1v33bDuUTHv479WF8', 'xn8agIL0m-1MU_Aw3Ng8UbC9bL0');
-parameters.oauth_signature = encodedSignature;
+    var encodedSignature = oauthSignature.generate('GET',yelp_url, parameters, YELP_KEY_SECRET, YELP_TOKEN_SECRET);
+    parameters.oauth_signature = encodedSignature;
 
 var settings = {
     url: yelp_url,

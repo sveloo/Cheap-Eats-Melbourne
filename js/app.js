@@ -54,14 +54,15 @@ function googleError() {
     alert('For some reason Google Maps isn\'t loading, have you checked your connection?')
 }
 
-var Restaurant = function(data) {
-    this.cuisine = data.cuisine;
-    // etc.
+//  The restaurant object creator
+// var Restaurant = function(data) {
+//     this.cuisine = data.cuisine;
+//     // etc.
 
-    this.menu = ko.computed(function(){
-        //
-    });
-};
+//     this.menu = ko.computed(function(){
+//         //
+//     });
+// };
 
 var ViewModel = function() {
 
@@ -76,11 +77,11 @@ var ViewModel = function() {
     // Make the restaurant Array an observable array in this instance
     self.myRestaurants = ko.observableArray(restaurantArray);
 
- //   self.myRestaurants = ko.observableArray();
-
-  /*  restaurantArray.forEach(function(restaurant) {
-        self.myRestaurants.push(new Restaurant(restaurant));
-    }); */
+    // If using the restaurant object creator then unqoute these lines.
+    // self.myRestaurants = ko.observableArray();
+    // restaurantArray.forEach(function(restaurant) {
+    //     self.myRestaurants.push(new Restaurant(restaurant));
+    // });
 
     // Create the infowindow
     restaurantInfoWindow = new google.maps.InfoWindow();
@@ -123,8 +124,52 @@ var ViewModel = function() {
         var marker = restaurant.marker;
         google.maps.event.trigger(marker, 'click');
 
-    };
+        // YELP API AUTHENTICATION
+        function nonce_generate() {
+            return (Math.floor(Math.random() * 1e12).toString());
+        }
 
+        var yelp_url = 'http://api.yelp.com/v2/search';
+
+        var YELP_KEY = 'khBkEOW5FohZSnMNSp9NlQ',
+            YELP_TOKEN = 'sv3hcY_HyOH2WdjWuEjCHbDXhhLwnz_X',
+            YELP_KEY_SECRET = 'vPFLQCN_HH1v33bDuUTHv479WF8',
+            YELP_TOKEN_SECRET = 'xn8agIL0m-1MU_Aw3Ng8UbC9bL0';
+
+        var parameters = {
+            oauth_consumer_key: YELP_KEY,
+            oauth_token: YELP_TOKEN,
+            oauth_nonce: nonce_generate(),
+            oauth_timestamp: Math.floor(Date.now()/1000),
+            oauth_signature_method: 'HMAC-SHA1',
+            oauth_version : '1.0',
+            callback: 'cb'              // This is crucial to include for jsonp implementation in AJAX or else the oauth-signature will be wrong.
+        };
+
+        var encodedSignature = oauthSignature.generate('GET', yelp_url, parameters, YELP_KEY_SECRET, YELP_TOKEN_SECRET);
+        parameters.oauth_signature = encodedSignature;
+
+        var settings = {
+            url: yelp_url,
+            data: parameters,
+            cache: true,                // This is crucial to include as well to prevent jQuery from adding on a cache-buster parameter "_=23489489749837", invalidating our oauth-signature
+            dataType: 'jsonp',
+            success: function(results) {
+                // Do stuff with results
+                console.log("Yelp! Success");
+            },
+            error: function() {
+                // Do stuff on fail
+                console.log("Yelp! Fail!");
+            }
+        };
+
+        // Send AJAX query via jQuery library.
+        $.ajax(settings);
+
+    };
 
 // Closes the ViewModel
 }
+
+
