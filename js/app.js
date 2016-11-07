@@ -1,30 +1,12 @@
 'use strict';
 
-// Initialise the Google Map
+//Initialise my variables
 var map;
-var marker;
 var vm;
-
-
-function initMap() {
-
-    map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: -37.9701542, lng: 144.4927086},
-        mapTypeId: 'terrain',
-        zoom: 16
-    });
-
-    //Initialise Knockout
-    vm = new ViewModel();
-    ko.applyBindings(vm);
-}
-
-
-// Error call handle
-function googleError() {
-    alert('For some reason Google Maps isn\'t loading, have you checked your connection?')
-}
-
+var markers;
+var bounds;
+var contentString;
+var restaurantInfoWindow;
 
 // Restaurants data consisting of name, coords (lat & lng coordinates) and cuisine category for filtering.
 // This list taken from a recent review by TimeOut magazine of the top 20 restaurants in Melbourne with meals under $20.
@@ -53,22 +35,58 @@ var restaurantArray = [
     {name: 'Tiba\'s Lebanese Food', coords: {lat: -37.7661628, lng: 144.9603235}, cuisine: 'Kebabs'}
 ];
 
+function initMap() {
+
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: -37.9701542, lng: 144.4927086},
+        mapTypeId: 'terrain',
+        zoom: 16
+    });
+
+    //Initialise Knockout
+    vm = new ViewModel();
+    ko.applyBindings(vm);
+}
+
+
+// Error call handle
+function googleError() {
+    alert('For some reason Google Maps isn\'t loading, have you checked your connection?')
+}
+
+var Restaurant = function(data) {
+    this.cuisine = data.cuisine;
+    // etc.
+
+    this.menu = ko.computed(function(){
+        //
+    });
+};
 
 var ViewModel = function() {
 
     var self = this;
 
     // An array to store all the markers and corresponsing Google Map API marker information.
-    var markers = [];
+    markers = [];
 
     // Setting up boundaries using the Google Maps API documentation
-    var bounds = new google.maps.LatLngBounds();
+    bounds = new google.maps.LatLngBounds();
 
     // Make the restaurant Array an observable array in this instance
-    self.restaurantArray = ko.observableArray(restaurantArray);
+    self.myRestaurants = ko.observableArray(restaurantArray);
+
+ //   self.myRestaurants = ko.observableArray();
+
+  /*  restaurantArray.forEach(function(restaurant) {
+        self.myRestaurants.push(new Restaurant(restaurant));
+    }); */
+
+    // Create the infowindow
+    restaurantInfoWindow = new google.maps.InfoWindow();
 
     // Loop through the restaurantArray to create the markers
-    self.restaurantArray().forEach(function(restaurant) {
+    self.myRestaurants().forEach(function(restaurant) {
 
         var marker = new google.maps.Marker({
             map: map,
@@ -80,7 +98,7 @@ var ViewModel = function() {
         });
 
         // // Create a reference to the marker data in the restaurant object.
-        // restaurant.marker = marker;
+        restaurant.marker = marker;
 
         // Push the marker into the markers array.
         markers.push(marker);
@@ -89,30 +107,23 @@ var ViewModel = function() {
         bounds.extend(marker.position);
         map.fitBounds(bounds);
 
-        // Create the layout of the info window.
-        var contentString = '<div><h4>' + marker.title + '</h4><p>' + marker.cuisine + '</p>';
-        var restaurantInfoWindow = new google.maps.InfoWindow({
-            content: contentString
-        });
-
         // Create an onclick event to open an infowindow at each marker.
-
-        // google.maps.event.trigger(marker, 'click', populateInfoWindow(marker, restaurantInfoWindow));
-
         marker.addListener('click', function() {
-            self.populateInfoWindow(marker, restaurantInfoWindow);
-        });
-
-        self.populateInfoWindow = function (marker, restaurantInfoWindow){
-            console.log("Click!")
-            console.log(marker);
-            console.log(this.marker);
+            // Set the layout of the infowindow
+            contentString = '<div><h4>' + marker.title + '</h4><p>' + marker.cuisine + '</p></div>';
+            // Open the infowindow and load the layout
             restaurantInfoWindow.open(map, marker);
-        };
-
-
+            restaurantInfoWindow.setContent(contentString);
+        });
 
     });
+
+    self.populateInfoWindow = function (restaurant){
+        console.log(restaurant);
+        var marker = restaurant.marker;
+        google.maps.event.trigger(marker, 'click');
+
+    };
 
 
 // Closes the ViewModel
