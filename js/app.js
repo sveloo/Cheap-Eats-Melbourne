@@ -116,7 +116,7 @@ var ViewModel = function() {
                 return (Math.floor(Math.random() * 1e12).toString());
             }
 
-            var yelp_url = 'https://api.yelp.com/v2/search/?term=' + marker.title + '&location=Melbourne, Australia&limit=1&radius_filter=10000&cc=AU&category_filter=restaurants';
+            var yelp_url = 'https://api.yelp.com/v2/search?term=' + marker.title;
 
             var YELP_KEY = 'khBkEOW5FohZSnMNSp9NlQ',
                 YELP_TOKEN = 'sv3hcY_HyOH2WdjWuEjCHbDXhhLwnz_X',
@@ -130,15 +130,13 @@ var ViewModel = function() {
                 oauth_timestamp: Math.floor(Date.now()/1000),
                 oauth_signature_method: 'HMAC-SHA1',
                 oauth_version : '1.0',
-                callback: 'cb'              // This is crucial to include for jsonp implementation in AJAX or else the oauth-signature will be wrong.
+                callback: 'cb',              // This is crucial to include for jsonp implementation in AJAX or else the oauth-signature will be wrong.
+                term: 'restaurants',
+                location: 'Melbourne+Victoria+Australia',
             };
 
             var encodedSignature = oauthSignature.generate('GET', yelp_url, parameters, YELP_KEY_SECRET, YELP_TOKEN_SECRET);
             parameters.oauth_signature = encodedSignature;
-
-            // Variables for Yelp Request
-            var rating = marker.rating;
-            parameters.rating = rating;
 
             var settings = {
                 url: yelp_url,
@@ -148,8 +146,11 @@ var ViewModel = function() {
                 success: function(results) {
                     // Do stuff with results
                     console.log("Yelp! Success");
+                    console.log(results.businesses[0].rating_img_url);
                     // Set the layout of the infowindow
-                    contentString = '<div><h4>' + marker.title + '</h4><p>' + marker.cuisine + '</p>' + '<p>Yelp rating: ' + rating + '</p></div>';
+                    var yelpSnippet = results.businesses[0].snippet_text;
+                    var yelpStars = results.businesses[0].rating_img_url;
+                    contentString = '<div><h4>' + marker.title + '</h4><p>' + yelpSnippet + '</p><p>' + marker.cuisine + '</p><p>Yelp! Rating: ' + '<img src="' + yelpStars + '"/></div>';
                     // Open the infowindow and load the layout
                     restaurantInfoWindow.open(map, marker);
                     restaurantInfoWindow.setContent(contentString);
