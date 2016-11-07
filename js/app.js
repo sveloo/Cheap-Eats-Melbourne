@@ -121,7 +121,7 @@ var ViewModel = function() {
                 return (Math.floor(Math.random() * 1e12).toString());
             }
 
-            var yelp_url = 'http://api.yelp.com/v2/search';
+            var yelp_url = 'https://api.yelp.com/v2/search/?location=Melbourne, VIC, Australia&sort=2&limit=20&cc=AU&category_filter=restaurants';
 
             var YELP_KEY = 'khBkEOW5FohZSnMNSp9NlQ',
                 YELP_TOKEN = 'sv3hcY_HyOH2WdjWuEjCHbDXhhLwnz_X',
