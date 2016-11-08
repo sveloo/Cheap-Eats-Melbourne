@@ -72,6 +72,9 @@ var ViewModel = function() {
     // An array to store all the cuisines .
     cuisines = [];
 
+    // An array to store the user cuisine selection from the dropdown list.
+    selectedCuisine = [];
+
     // Setup boundaries using the Google Maps API.
     bounds = new google.maps.LatLngBounds();
 
@@ -80,6 +83,9 @@ var ViewModel = function() {
 
     // Make cuisines array an observarable array in this instance.
     self.myCuisines = ko.observableArray(cuisines);
+
+    // Make the selectedCuisine array an observable array in this instance.
+    self.myCuisine = ko.observableArray(selectedCuisine)
 
     // Make the restaurant array an observable array in this instance.
     self.myRestaurants = ko.observableArray(restaurantArray);
@@ -157,8 +163,8 @@ var ViewModel = function() {
                     var yelpStars = results.businesses[0].rating_img_url_large;
 
                     // Setup the layout of the infowindow
-                    contentString = '<div id="infoWindow"><h4><a href=' + yelpUrl + ' target="_blank">'
-                                        + marker.title + '</a></h4><p><strong>'
+                    contentString = '<div id="infoWindow"><h3><a href=' + yelpUrl + ' target="_blank">'
+                                        + marker.title + '</a></h3><p><strong>'
                                         + marker.cuisine + '</strong></p><p>'
                                         + yelpSnippet + '</p><p>'
                                         + '<img src="' + yelpStars + '"/></div>';
