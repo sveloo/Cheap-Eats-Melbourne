@@ -1,9 +1,11 @@
 'use strict';
 
-//Initialise my variables
+//Initialise my global variables
 var map;
 var vm;
 var markers;
+var cuisines;
+var filteredCuisines;
 var bounds;
 var contentString;
 var restaurantInfoWindow;
@@ -25,7 +27,7 @@ var restaurantArray = [
     {name: 'Trippy Taco', coords: {lat: -37.8065107, lng: 144.9802333}, cuisine: 'Mexican'},
     {name: 'Shujinko', coords: {lat: -37.8113177, lng: 144.9649363}, cuisine: 'Japanese'},
     {name: 'Bimbo Deluxe', coords: {lat: -37.7960887, lng: 144.9768523}, cuisine: 'Pizza'},
-    {name: 'Arbory Bar and Eatery', coords: {lat: -37.8189329, lng: 144.9639345}, cuisine: 'Pubmeal'},
+    {name: 'Arbory Bar and Eatery', coords: {lat: -37.8189329, lng: 144.9639345}, cuisine: 'Pub Meals'},
     {name: 'Slice Girls West', coords: {lat: -37.8018787, lng: 144.9045083}, cuisine: 'Burgers'},
     {name: 'Middle Fish', coords: {lat: -37.802564, lng: 144.9568226}, cuisine: 'Seafood'},
     {name: 'Game Chicken', coords: {lat: -37.8143223, lng: 144.9587169}, cuisine: 'Korean'},
@@ -35,6 +37,8 @@ var restaurantArray = [
     {name: 'Tiba\'s Lebanese Food', coords: {lat: -37.7661628, lng: 144.9603235}, cuisine: 'Kebabs'}
 ];
 
+
+// Initialise Google Maps
 function initMap() {
 
     map = new google.maps.Map(document.getElementById('map'), {
@@ -54,37 +58,28 @@ function googleError() {
     alert('For some reason Google Maps isn\'t loading, have you checked your connection?')
 }
 
-//  The restaurant object creator
-// var Restaurant = function(data) {
-//     this.cuisine = data.cuisine;
-//     // etc.
-
-//     this.menu = ko.computed(function(){
-//         //
-//     });
-// };
 
 var ViewModel = function() {
 
     var self = this;
 
-    // An array to store all the markers and corresponsing Google Map API marker information.
-    markers = [];
-
-    // Setting up boundaries using the Google Maps API documentation
+    // Setting up boundaries using the Google Maps API documentation.
     bounds = new google.maps.LatLngBounds();
 
-    // Make the restaurant Array an observable array in this instance
-    self.myRestaurants = ko.observableArray(restaurantArray);
+    // An array to store all the markers and corresponsing Google Map API marker information.
+    markers = [];
+    // An array to store all the cuisines .
+    cuisines = [];
+    // filteredCuisines = [];
 
-    // If using the restaurant object creator then unqoute these lines.
-    // self.myRestaurants = ko.observableArray();
-    // restaurantArray.forEach(function(restaurant) {
-    //     self.myRestaurants.push(new Restaurant(restaurant));
-    // });
+    self.myCuisines = ko.observableArray(cuisines);
 
     // Create the infowindow
     restaurantInfoWindow = new google.maps.InfoWindow();
+
+
+    // Make the restaurant array an observable array in this instance.
+    self.myRestaurants = ko.observableArray(restaurantArray);
 
     // Loop through the restaurantArray to create the markers
     self.myRestaurants().forEach(function(restaurant) {
@@ -98,11 +93,17 @@ var ViewModel = function() {
             animation: google.maps.Animation.DROP
         });
 
-        // // Create a reference to the marker data in the restaurant object.
+        // Create a reference to the marker data in the restaurant object.
         restaurant.marker = marker;
-
         // Push the marker into the markers array.
         markers.push(marker);
+
+        // Create a reference to cuisine data in the restaurant array for each restaurant.
+        var cuisine = restaurant.cuisine;
+        // Push the cuisine into the cuisines array.
+        cuisines.push(cuisine);
+        // Filter the cuisines and pushed to the filtered cuisines array. Got this snippet from Stack Overflow.
+        cuisines = $.unique(cuisines.sort());
 
         // Fit the map to the boundaries of the markers.
         bounds.extend(marker.position);
@@ -144,19 +145,27 @@ var ViewModel = function() {
                 cache: true,                // This is crucial to include as well to prevent jQuery from adding on a cache-buster parameter "_=23489489749837", invalidating our oauth-signature
                 dataType: 'jsonp',
                 success: function(results) {
-                    // Do stuff with results
+                    // Confirm API succesfully connected
                     console.log("Yelp! Success");
-                    console.log(results.businesses[0].rating_img_url);
-                    // Set the layout of the infowindow
+
+                    // Setup variables for Yelp specific results
+                    var yelpUrl = results.businesses[0].url;
                     var yelpSnippet = results.businesses[0].snippet_text;
-                    var yelpStars = results.businesses[0].rating_img_url;
-                    contentString = '<div><h4>' + marker.title + '</h4><p>' + yelpSnippet + '</p><p>' + marker.cuisine + '</p><p>Yelp! Rating: ' + '<img src="' + yelpStars + '"/></div>';
+                    var yelpStars = results.businesses[0].rating_img_url_large;
+
+                    // Setup the layout of the infowindow
+                    contentString = '<div id="infoWindow"><h4><a href=' + yelpUrl + ' target="_blank">'
+                                        + marker.title + '</a></h4><p><strong>'
+                                        + marker.cuisine + '</strong></p><p>'
+                                        + yelpSnippet + '</p><p>'
+                                        + '<img src="' + yelpStars + '"/></div>';
+
                     // Open the infowindow and load the layout
                     restaurantInfoWindow.open(map, marker);
                     restaurantInfoWindow.setContent(contentString);
                 },
                 error: function() {
-                    // Do stuff on fail
+                    // Error message on API load failure.
                     console.log("Yelp! Fail!");
                 }
             };
