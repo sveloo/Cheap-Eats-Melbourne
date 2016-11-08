@@ -4,11 +4,14 @@
 var map;
 var vm;
 var markers;
+var cuisine;
 var cuisines;
 var filteredCuisines;
+var selectedCuisine;
 var bounds;
 var contentString;
 var restaurantInfoWindow;
+
 
 // Restaurants data consisting of name, coords (lat & lng coordinates) and cuisine category for filtering.
 // This list taken from a recent review by TimeOut magazine of the top 20 restaurants in Melbourne with meals under $20.
@@ -63,20 +66,20 @@ var ViewModel = function() {
 
     var self = this;
 
-    // Setting up boundaries using the Google Maps API documentation.
-    bounds = new google.maps.LatLngBounds();
-
     // An array to store all the markers and corresponsing Google Map API marker information.
     markers = [];
+
     // An array to store all the cuisines .
     cuisines = [];
-    // filteredCuisines = [];
 
-    self.myCuisines = ko.observableArray(cuisines);
+    // Setup boundaries using the Google Maps API.
+    bounds = new google.maps.LatLngBounds();
 
-    // Create the infowindow
+    // Create a single infowindow for reuse so that the map does not open multiple windows.
     restaurantInfoWindow = new google.maps.InfoWindow();
 
+    // Make cuisines array an observarable array in this instance.
+    self.myCuisines = ko.observableArray(cuisines);
 
     // Make the restaurant array an observable array in this instance.
     self.myRestaurants = ko.observableArray(restaurantArray);
@@ -94,15 +97,15 @@ var ViewModel = function() {
         });
 
         // Create a reference to the marker data in the restaurant object.
-        restaurant.marker = marker;
         // Push the marker into the markers array.
+        restaurant.marker = marker;
         markers.push(marker);
 
         // Create a reference to cuisine data in the restaurant array for each restaurant.
-        var cuisine = restaurant.cuisine;
-        // Push the cuisine into the cuisines array.
-        cuisines.push(cuisine);
+        // Push the each restaurant entry cuisine into the cuisines array.
         // Filter the cuisines and pushed to the filtered cuisines array. Got this snippet from Stack Overflow.
+        cuisine = restaurant.cuisine;
+        cuisines.push(cuisine);
         cuisines = $.unique(cuisines.sort());
 
         // Fit the map to the boundaries of the markers.
@@ -176,8 +179,11 @@ var ViewModel = function() {
 
     });
 
+    self.selectCuisine = function(selectedCuisine) {
+        console.log("You selected " + selectedCuisine);
+    }
+
     self.populateInfoWindow = function (restaurant){
-        console.log(restaurant);
         var marker = restaurant.marker;
         google.maps.event.trigger(marker, 'click');
 
