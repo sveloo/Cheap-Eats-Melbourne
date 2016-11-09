@@ -77,9 +77,6 @@ var ViewModel = function() {
     // Make cuisines array an observarable array in this instance.
     self.myCuisines = ko.observableArray(cuisines);
 
-    // Make the selectedCuisine array an observable array in this instance.
-    self.mySelectedCuisine = ko.observableArray(selectedCuisine)
-
     // Make the restaurant array an observable array in this instance.
     self.myRestaurants = ko.observableArray(restaurantArray);
 
@@ -178,17 +175,37 @@ var ViewModel = function() {
 
     });
 
+    //self.mySelectedCuisine = ko.observable(self.myCuisines()[0]);
+    self.mySelectedCuisine = ko.observable("");
+
     self.myMarkers = ko.observableArray(markers);
 
-    self.mySelectedCuisine = function(selectedCuisine) {
-        console.log("You selected " + selectedCuisine);
-        // Do stuff here to show only selectedCuisine markers and restaurant list.
-        // filteredCuisines = ko.utils.arrayFilter(this.myMarkers(), function () {
-        //      return (marker.cuisine === selectedCuisine);
-        //      console.log(myMarkers);
-        //      self.myRestaurants(myMarkers);
-        // });
-    }
+    // This knockout filtering code was adapted from http://www.knockmeout.net/2011/04/utility-functions-in-knockoutjs.html
+    self.filteredByType = ko.computed(function() {
+
+        // If the filter is undefined, which is it's beginning state, then do nothing. This leaves
+        // displays the restaurant list and all markers on the map.
+        // If a choice is made, then convert the choice to lowercase.
+        var filter = !self.mySelectedCuisine() ? "" : self.mySelectedCuisine().toLowerCase();
+
+        if (filter.length === 0) {
+            markers.forEach(function(marker) {
+                marker.setVisible(true);
+            });
+            return self.myRestaurants();
+        }
+
+        else {
+            return ko.utils.arrayFilter(self.myRestaurants(), function(restaurant) {
+                // case insensitive search
+                var cuisine = restaurant.cuisine.toLowerCase();
+                var match = filter === cuisine; // true or false
+                restaurant.marker.setVisible(match);
+                return match;
+            });
+        }
+
+    });
 
     self.populateInfoWindow = function (restaurant){
         var marker = restaurant.marker;
