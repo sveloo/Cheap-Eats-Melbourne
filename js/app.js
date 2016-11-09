@@ -175,14 +175,17 @@ var ViewModel = function() {
 
     });
 
+    self.populateInfoWindow = function (restaurant){
+        var marker = restaurant.marker;
+        google.maps.event.trigger(marker, 'click');
+    };
+
     //self.mySelectedCuisine = ko.observable(self.myCuisines()[0]);
     self.mySelectedCuisine = ko.observable("");
 
-    self.myMarkers = ko.observableArray(markers);
-
     // This knockout filtering code was adapted from http://www.knockmeout.net/2011/04/utility-functions-in-knockoutjs.html
     self.filteredByType = ko.computed(function() {
-
+        restaurantInfoWindow.close();
         // If the filter is undefined, which is it's beginning state, then do nothing. This leaves
         // displays the restaurant list and all markers on the map.
         // If a choice is made, then convert the choice to lowercase.
@@ -207,10 +210,18 @@ var ViewModel = function() {
 
     });
 
-    self.populateInfoWindow = function (restaurant){
-        var marker = restaurant.marker;
-        google.maps.event.trigger(marker, 'click');
-    };
+    self.showMarkers = function(){
+        markers.forEach(function(marker) {
+            marker.setVisible(true);
+        });
+    }
+
+    self.hideMarkers = function(){
+        restaurantInfoWindow.close();
+        markers.forEach(function(marker) {
+            marker.setVisible(false);
+        });
+    }
 
 
 // Closes the ViewModel
