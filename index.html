@@ -23,16 +23,19 @@
                 <div class="col-xs-12 col-sm-12 col-md-3 col-lg-2">
                     <h1>Cheap Eats Melbourne</h1>
                     <p>What cuisine you feelin like?</p>
+
                     <select data-bind="options: cuisines, optionsCaption: 'Select a cuisine', value: mySelectedCuisine"></select>
+
                     <div id="restaurants">
+ <!--                        <ul data-bind="foreach: restaurantArray"> -->
                         <ul data-bind="foreach: filteredByType">
                             <li><a href="#" data-bind="text: name, click: $root.populateInfoWindow"></a></li>
                         </ul>
                     </div>
 
                     <div>
-                        <button data-bind="click: hideMarkers">Hide Markers</button>
-                        <button data-bind="click: showMarkers">Show Markers</button>
+                        <button>Hide Markers</button>
+                        <button>Show Markers</button>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10">
