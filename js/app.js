@@ -16,14 +16,26 @@ var restaurantInfoWindow;
 // THE MODEL
 // An array to store all the restaurant information.
 var restaurantArray = [
-    {name: 'Soi 38', coords: {lat: -37.8124841, lng: 144.9697461}, cuisine: 'Thai'},
+    {name: 'Brother Baba Budan', coords: {lat: -37.813548, lng: 144.962195}, cuisine: 'Cafe'},
+    {name: 'Huxtaburger', coords: {lat: -37.817041, lng: 144.962679}, cuisine: 'Burgers'},
+    {name: 'Paperboy Kitchen', coords: {lat: -37.811578, lng: 144.960280}, cuisine: 'Asian'},
+    {name: 'Little Ramen Bar', coords: {lat: -37.813121, lng: 144.962367}, cuisine: 'Japanese'},
+    {name: 'The Borek Shop', coords: {lat: -37.806948, lng: 144.959499}, cuisine: 'Turkish'},
+    {name: 'Purple Peanuts', coords: {lat: -37.8186653, lng: 144.9520687}, cuisine: 'Japanese'},
+    {name: 'Shanghai Street', coords: {lat: -37.811326, lng: 144.967701}, cuisine: 'Asian'},
     {name: 'ShanDong MaMa', coords: {lat: -37.8126419, lng: 144.9651844}, cuisine: 'Asian'},
-    {name: 'Pellegrini\’s', coords: {lat: -37.8116955, lng: 144.9690115}, cuisine: 'Italian'},
-    {name: 'Grand Trailer Park Taverna', coords: {lat: -37.8121679, lng: 144.970828}, cuisine: 'Burgers'},
-    {name: 'Shujinko', coords: {lat: -37.8113177, lng: 144.9649363}, cuisine: 'Japanese'},
+    {name: 'Phò Nom', coords: {lat: -37.812086, lng: 144.963695}, cuisine: 'Vietnamese'},
+    {name: 'Little Bean Blue', coords: {lat: -37.812528, lng: 144.973335}, cuisine: 'Cafe'},
+    {name: 'Mr Burger', coords: {lat: -37.807447, lng: 144.959288}, cuisine: 'Burger'},
+    {name: 'Brim CC', coords: {lat: -37.818026, lng: 144.954909}, cuisine: 'Japanese'},
+    {name: 'Laksa Bar', coords: {lat: -37.809194, lng: 144.968466}, cuisine: 'Malaysian'},
+    {name: 'EARL Canteen Bourke St', coords: {lat: -37.815137, lng: 144.958790}, cuisine: 'Sandwhiches'},
     {name: 'Game Chicken', coords: {lat: -37.8143223, lng: 144.9587169}, cuisine: 'Korean'},
-    {name: 'Purple Peanuts Japanese Café', coords: {lat: -37.8186653, lng: 144.9520687}, cuisine: 'Japanese'},
-    {name: 'Pho Dzung City Noodle Shop', coords: {lat: -37.810920, lng: 144.967676}, cuisine: 'Vietnamese'}
+    {name: 'Grand Trailer Park Taverna', coords: {lat: -37.8121679, lng: 144.970828}, cuisine: 'Burgers'},
+    {name: 'Jimmy Grants Emporium', coords: {lat: -37.812766, lng: 144.963610}, cuisine: 'Greek'},
+    {name: 'Lord Of The Fries', coords: {lat: -37.815207, lng: 144.963937}, cuisine: 'Vegetarian'},
+    {name: 'Pellegrini\’s', coords: {lat: -37.8116955, lng: 144.9690115}, cuisine: 'Italian'},
+    {name: 'Pho Dzung City Noodle Shop', coords: {lat: -37.810920, lng: 144.967676}, cuisine: 'Vietnamese'},
 ];
 
 // An array to store all the markers and corresponsing Google Map API marker information.
