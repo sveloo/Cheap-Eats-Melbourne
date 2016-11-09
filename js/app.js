@@ -263,6 +263,8 @@ var ViewModel = function() {
         // Create an onclick event to open an infowindow at each marker.
         marker.addListener('click', function() {
 
+            self.toggleBounce(marker);
+
             // YELP API AUTHENTICATION
             function nonce_generate() {
                 return (Math.floor(Math.random() * 1e12).toString());
@@ -331,6 +333,7 @@ var ViewModel = function() {
     self.populateInfoWindow = function(restaurant) {
         var marker = restaurant.marker;
         google.maps.event.trigger(marker, 'click');
+        self.toggleBounce(marker);
     };
 
     //self.mySelectedCuisine = ko.observable(self.myCuisines()[0]);
@@ -373,6 +376,14 @@ var ViewModel = function() {
         markers.forEach(function(marker) {
             marker.setVisible(false);
         });
+    }
+
+    self.toggleBounce = function(marker) {
+        if (marker.getAnimation() !== null) {
+            marker.setAnimation(null);
+        } else {
+            marker.setAnimation(google.maps.Animation.BOUNCE);
+        }
     }
 
 
