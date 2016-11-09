@@ -17,7 +17,7 @@ var restaurantInfoWindow;
 // An array to store all the restaurant information.
 var restaurantArray = [
     {name: 'Brother Baba Budan', coords: {lat: -37.813548, lng: 144.962195}, cuisine: 'Cafe'},
-    {name: 'Huxtaburger', coords: {lat: -37.817041, lng: 144.962679}, cuisine: 'Burgers'},
+    {name: 'Huxtaburger', coords: {lat: -37.817041, lng: 144.962679}, cuisine: 'Burger'},
     {name: 'Paperboy Kitchen', coords: {lat: -37.811578, lng: 144.960280}, cuisine: 'Asian'},
     {name: 'Little Ramen Bar', coords: {lat: -37.813121, lng: 144.962367}, cuisine: 'Japanese'},
     {name: 'The Borek Shop', coords: {lat: -37.806948, lng: 144.959499}, cuisine: 'Turkish'},
@@ -31,7 +31,7 @@ var restaurantArray = [
     {name: 'Laksa Bar', coords: {lat: -37.809194, lng: 144.968466}, cuisine: 'Malaysian'},
     {name: 'EARL Canteen Bourke St', coords: {lat: -37.815137, lng: 144.958790}, cuisine: 'Sandwhiches'},
     {name: 'Game Chicken', coords: {lat: -37.8143223, lng: 144.9587169}, cuisine: 'Korean'},
-    {name: 'Grand Trailer Park Taverna', coords: {lat: -37.8121679, lng: 144.970828}, cuisine: 'Burgers'},
+    {name: 'Grand Trailer Park Taverna', coords: {lat: -37.8121679, lng: 144.970828}, cuisine: 'Burger'},
     {name: 'Jimmy Grants Emporium', coords: {lat: -37.812766, lng: 144.963610}, cuisine: 'Greek'},
     {name: 'Lord Of The Fries', coords: {lat: -37.815207, lng: 144.963937}, cuisine: 'Vegetarian'},
     {name: 'Pellegrini\’s', coords: {lat: -37.8116955, lng: 144.9690115}, cuisine: 'Italian'},
