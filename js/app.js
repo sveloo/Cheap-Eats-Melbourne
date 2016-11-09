@@ -25,17 +25,7 @@ var restaurantArray = [
     {name: 'Shanghai Street', coords: {lat: -37.811326, lng: 144.967701}, cuisine: 'Asian'},
     {name: 'ShanDong MaMa', coords: {lat: -37.8126419, lng: 144.9651844}, cuisine: 'Asian'},
     {name: 'Phò Nom', coords: {lat: -37.812086, lng: 144.963695}, cuisine: 'Vietnamese'},
-    {name: 'Little Bean Blue', coords: {lat: -37.812528, lng: 144.973335}, cuisine: 'Cafe'},
-    {name: 'Mr Burger', coords: {lat: -37.807447, lng: 144.959288}, cuisine: 'Burger'},
-    {name: 'Brim CC', coords: {lat: -37.818026, lng: 144.954909}, cuisine: 'Japanese'},
-    {name: 'Laksa Bar', coords: {lat: -37.809194, lng: 144.968466}, cuisine: 'Malaysian'},
-    {name: 'EARL Canteen Bourke St', coords: {lat: -37.815137, lng: 144.958790}, cuisine: 'Sandwhiches'},
-    {name: 'Game Chicken', coords: {lat: -37.8143223, lng: 144.9587169}, cuisine: 'Korean'},
-    {name: 'Grand Trailer Park Taverna', coords: {lat: -37.8121679, lng: 144.970828}, cuisine: 'Burger'},
-    {name: 'Jimmy Grants Emporium', coords: {lat: -37.812766, lng: 144.963610}, cuisine: 'Greek'},
-    {name: 'Lord Of The Fries', coords: {lat: -37.815207, lng: 144.963937}, cuisine: 'Vegetarian'},
-    {name: 'Pellegrini\’s', coords: {lat: -37.8116955, lng: 144.9690115}, cuisine: 'Italian'},
-    {name: 'Pho Dzung City Noodle Shop', coords: {lat: -37.810920, lng: 144.967676}, cuisine: 'Vietnamese'},
+    {name: 'Little Bean Blue', coords: {lat: -37.812528, lng: 144.973335}, cuisine: 'Cafe'}
 ];
 
 // An array to store all the markers and corresponsing Google Map API marker information.
@@ -54,12 +44,15 @@ function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: -37.813531, lng: 144.965633},
         mapTypeId: 'terrain',
-        zoom: 15
+        zoom: 15,
     });
 
     //Initialise Knockout
     vm = new ViewModel();
     ko.applyBindings(vm);
+
+    // Intialise Materialize
+    $('select').material_select();
 }
 
 
@@ -154,11 +147,11 @@ var ViewModel = function() {
 
                     // Setup the layout of the infowindow
                     contentString = '<div id="infoWindow"><h3>'
-                                        + marker.title + '</h3><p><strong>'
-                                        + marker.cuisine + '</strong></p><p>'
-                                        + '<img src="' + yelpStars + '"/></p><p>'
-                                        + yelpSnippet + ' <a href=' + yelpUrl + ' target="_blank">Read more</a></p><p></div>';
+                                        + marker.title + '</h3><p>'
 
+                                        + '<img src="' + yelpStars + '"/></p><p>'
+                                        + yelpSnippet + ' <a href=' + yelpUrl + ' target="_blank">Read more</a></p><p class="chip">'
+                                        + marker.cuisine + '</p><p></div>';
                     // Open the infowindow and load the layout
                     restaurantInfoWindow.open(map, marker);
                     restaurantInfoWindow.setContent(contentString);
@@ -211,10 +204,10 @@ var ViewModel = function() {
     });
 
     self.showMarkers = function(){
+        $('select').material_select();
         markers.forEach(function(marker) {
             marker.setVisible(true);
         });
-        self.mySelectedCuisine(null);
     }
 
     self.hideMarkers = function(){

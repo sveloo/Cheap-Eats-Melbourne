@@ -5,11 +5,32 @@
    background-color: grey;
 }
 
-#restaurants ul {
-    list-style-type: none;
-    padding: 10px 0 0 0;
+.controls {
+    padding-bottom: 2rem;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin: 1rem 0;
+}
+
+p {
+    font-size: 1.15rem;
+    margin: 1rem 0;
+}
+
+.collection a.collection-item {
+    color: #4DB4F8;
+}
+
+.dropdown-content .select-dropdown .active {
+    color: #4DB4F8;
 }
 
 #infoWindow {
     width: 400px;
+}
+
+.chip {
+    margin: 0;
 }
