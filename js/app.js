@@ -15,18 +15,77 @@ var restaurantInfoWindow;
 
 // THE MODEL
 // An array to store all the restaurant information.
-var restaurantArray = [
-    {name: 'Brother Baba Budan', coords: {lat: -37.813548, lng: 144.962195}, cuisine: 'Cafe'},
-    {name: 'Huxtaburger', coords: {lat: -37.817041, lng: 144.962679}, cuisine: 'Burger'},
-    {name: 'Paperboy Kitchen', coords: {lat: -37.811578, lng: 144.960280}, cuisine: 'Asian'},
-    {name: 'Little Ramen Bar', coords: {lat: -37.813121, lng: 144.962367}, cuisine: 'Japanese'},
-    {name: 'The Borek Shop', coords: {lat: -37.806948, lng: 144.959499}, cuisine: 'Turkish'},
-    {name: 'Purple Peanuts', coords: {lat: -37.8186653, lng: 144.9520687}, cuisine: 'Japanese'},
-    {name: 'Shanghai Street', coords: {lat: -37.811326, lng: 144.967701}, cuisine: 'Asian'},
-    {name: 'ShanDong MaMa', coords: {lat: -37.8126419, lng: 144.9651844}, cuisine: 'Asian'},
-    {name: 'Phò Nom', coords: {lat: -37.812086, lng: 144.963695}, cuisine: 'Vietnamese'},
-    {name: 'Little Bean Blue', coords: {lat: -37.812528, lng: 144.973335}, cuisine: 'Cafe'}
-];
+var restaurantArray = [{
+    name: 'Brother Baba Budan',
+    coords: {
+        lat: -37.813548,
+        lng: 144.962195
+    },
+    cuisine: 'Cafe'
+}, {
+    name: 'Huxtaburger',
+    coords: {
+        lat: -37.817041,
+        lng: 144.962679
+    },
+    cuisine: 'Burger'
+}, {
+    name: 'Paperboy Kitchen',
+    coords: {
+        lat: -37.811578,
+        lng: 144.960280
+    },
+    cuisine: 'Asian'
+}, {
+    name: 'Little Ramen Bar',
+    coords: {
+        lat: -37.813121,
+        lng: 144.962367
+    },
+    cuisine: 'Japanese'
+}, {
+    name: 'The Borek Shop',
+    coords: {
+        lat: -37.806948,
+        lng: 144.959499
+    },
+    cuisine: 'Turkish'
+}, {
+    name: 'Purple Peanuts',
+    coords: {
+        lat: -37.8186653,
+        lng: 144.9520687
+    },
+    cuisine: 'Japanese'
+}, {
+    name: 'Shanghai Street',
+    coords: {
+        lat: -37.811326,
+        lng: 144.967701
+    },
+    cuisine: 'Asian'
+}, {
+    name: 'ShanDong MaMa',
+    coords: {
+        lat: -37.8126419,
+        lng: 144.9651844
+    },
+    cuisine: 'Asian'
+}, {
+    name: 'Phò Nom',
+    coords: {
+        lat: -37.812086,
+        lng: 144.963695
+    },
+    cuisine: 'Vietnamese'
+}, {
+    name: 'Little Bean Blue',
+    coords: {
+        lat: -37.812528,
+        lng: 144.973335
+    },
+    cuisine: 'Cafe'
+}];
 
 // An array to store all the markers and corresponsing Google Map API marker information.
 markers = [];
@@ -42,9 +101,109 @@ selectedCuisine = [];
 function initMap() {
 
     map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: -37.813531, lng: 144.965633},
+        center: {
+            lat: -37.813531,
+            lng: 144.965633
+        },
         mapTypeId: 'terrain',
         zoom: 15,
+        styles: [{
+            "featureType": "all",
+            "elementType": "labels",
+            "stylers": [{
+                "visibility": "off"
+            }]
+        }, {
+            "featureType": "administrative.country",
+            "elementType": "all",
+            "stylers": [{
+                "visibility": "on"
+            }]
+        }, {
+            "featureType": "administrative.province",
+            "elementType": "all",
+            "stylers": [{
+                "visibility": "on"
+            }]
+        }, {
+            "featureType": "administrative.province",
+            "elementType": "geometry.fill",
+            "stylers": [{
+                "visibility": "on"
+            }]
+        }, {
+            "featureType": "administrative.locality",
+            "elementType": "all",
+            "stylers": [{
+                "visibility": "on"
+            }]
+        }, {
+            "featureType": "administrative.neighborhood",
+            "elementType": "all",
+            "stylers": [{
+                "visibility": "on"
+            }]
+        }, {
+            "featureType": "administrative.land_parcel",
+            "elementType": "all",
+            "stylers": [{
+                "visibility": "on"
+            }]
+        }, {
+            "featureType": "landscape",
+            "elementType": "all",
+            "stylers": [{
+                "visibility": "on"
+            }]
+        }, {
+            "featureType": "landscape.man_made",
+            "elementType": "all",
+            "stylers": [{
+                "visibility": "on"
+            }]
+        }, {
+            "featureType": "landscape.natural.landcover",
+            "elementType": "geometry.fill",
+            "stylers": [{
+                "visibility": "on"
+            }]
+        }, {
+            "featureType": "road.highway",
+            "elementType": "labels",
+            "stylers": [{
+                "visibility": "on"
+            }]
+        }, {
+            "featureType": "road.highway.controlled_access",
+            "elementType": "geometry.fill",
+            "stylers": [{
+                "color": "#e2931e"
+            }]
+        }, {
+            "featureType": "road.highway.controlled_access",
+            "elementType": "geometry.stroke",
+            "stylers": [{
+                "color": "#e2931e"
+            }]
+        }, {
+            "featureType": "road.arterial",
+            "elementType": "labels.text",
+            "stylers": [{
+                "visibility": "on"
+            }]
+        }, {
+            "featureType": "road.local",
+            "elementType": "labels.text",
+            "stylers": [{
+                "visibility": "on"
+            }]
+        }, {
+            "featureType": "water",
+            "elementType": "geometry.fill",
+            "stylers": [{
+                "color": "#4cb2e6"
+            }]
+        }]
     });
 
     //Initialise Knockout
@@ -120,10 +279,10 @@ var ViewModel = function() {
                 oauth_consumer_key: YELP_KEY,
                 oauth_token: YELP_TOKEN,
                 oauth_nonce: nonce_generate(),
-                oauth_timestamp: Math.floor(Date.now()/1000),
+                oauth_timestamp: Math.floor(Date.now() / 1000),
                 oauth_signature_method: 'HMAC-SHA1',
-                oauth_version : '1.0',
-                callback: 'cb',              // This is crucial to include for jsonp implementation in AJAX or else the oauth-signature will be wrong.
+                oauth_version: '1.0',
+                callback: 'cb', // This is crucial to include for jsonp implementation in AJAX or else the oauth-signature will be wrong.
                 term: 'restaurants',
                 location: 'Melbourne+Victoria+Australia',
             };
@@ -134,7 +293,7 @@ var ViewModel = function() {
             var settings = {
                 url: yelp_url,
                 data: parameters,
-                cache: true,                // This is crucial to include as well to prevent jQuery from adding on a cache-buster parameter "_=23489489749837", invalidating our oauth-signature
+                cache: true, // This is crucial to include as well to prevent jQuery from adding on a cache-buster parameter "_=23489489749837", invalidating our oauth-signature
                 dataType: 'jsonp',
                 success: function(results) {
                     // Confirm API succesfully connected
@@ -146,12 +305,13 @@ var ViewModel = function() {
                     var yelpStars = results.businesses[0].rating_img_url_large;
 
                     // Setup the layout of the infowindow
-                    contentString = '<div id="infoWindow"><h3>'
-                                        + marker.title + '</h3><p>'
+                    contentString = '<div id="infoWindow"><h3>' +
+                        marker.title + '</h3><p>'
 
-                                        + '<img src="' + yelpStars + '"/></p><p>'
-                                        + yelpSnippet + ' <a href=' + yelpUrl + ' target="_blank">Read more</a></p><p class="chip">'
-                                        + marker.cuisine + '</p><p></div>';
+                    +
+                    '<img src="' + yelpStars + '"/></p><p>' +
+                        yelpSnippet + ' <a href=' + yelpUrl + ' target="_blank">Read more</a></p><p class="chip">' +
+                        marker.cuisine + '</p><p></div>';
                     // Open the infowindow and load the layout
                     restaurantInfoWindow.open(map, marker);
                     restaurantInfoWindow.setContent(contentString);
@@ -168,7 +328,7 @@ var ViewModel = function() {
 
     });
 
-    self.populateInfoWindow = function (restaurant){
+    self.populateInfoWindow = function(restaurant) {
         var marker = restaurant.marker;
         google.maps.event.trigger(marker, 'click');
     };
@@ -189,9 +349,7 @@ var ViewModel = function() {
                 marker.setVisible(true);
             });
             return self.myRestaurants();
-        }
-
-        else {
+        } else {
             return ko.utils.arrayFilter(self.myRestaurants(), function(restaurant) {
                 // case insensitive search
                 var cuisine = restaurant.cuisine.toLowerCase();
@@ -203,14 +361,14 @@ var ViewModel = function() {
 
     });
 
-    self.showMarkers = function(){
+    self.showMarkers = function() {
         $('select').material_select();
         markers.forEach(function(marker) {
             marker.setVisible(true);
         });
     }
 
-    self.hideMarkers = function(){
+    self.hideMarkers = function() {
         restaurantInfoWindow.close();
         markers.forEach(function(marker) {
             marker.setVisible(false);
@@ -218,12 +376,10 @@ var ViewModel = function() {
     }
 
 
-// Closes the ViewModel
+    // Closes the ViewModel
 }
 
 // Error call handle
 function googleError() {
     alert('For some reason Google Maps isn\'t loading, have you checked your Internet or Wifi connection?')
 }
-
-

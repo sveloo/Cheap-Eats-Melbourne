@@ -1,57 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <meta name="description" content="A Google Map of your neighbourhood">
-        <meta name="author" content="Sanjeev Veloo">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Cheap Eats Melbourne</title>
+    <meta name="description" content="A Google Map of your neighbourhood">
+    <meta name="author" content="Sanjeev Veloo">
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>Cheap Eats Melbourne</title>
 
-        <!-- Custom styles -->
-        <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    </head>
-    <body>
-        <div class="container-fluid">
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="css/styles.css">
 
-            <div class="row">
-                <div class="col s12 m3 l2 controls">
-                    <h1>Cheap Eats Melbourne</h1>
+</head>
 
-                    <p>What cuisine you feelin like?</p>
+<body>
+    <div class="container-fluid">
 
-                    <select data-bind="options: cuisines, optionsCaption: 'Select a cuisine', value: mySelectedCuisine"></select>
+        <div class="row">
+            <div class="col s12 m3 l2 controls">
+                <h1>Cheap Eats Melbourne</h1>
 
-                    <div class="collection" data-bind="foreach: filteredByType">
-                        <a class="collection-item" href="#" data-bind="text: name, click: $root.populateInfoWindow"></a>
-                    </div>
+                <p>What cuisine you feelin like?</p>
 
-                    <a data-bind="click: showMarkers" class="btn-floating btn-large waves-effect waves-light small orange"><i class="material-icons">location_on</i></a>
-                    <a data-bind="click: hideMarkers" class="btn-floating btn-large waves-effect waves-light small orange"><i class="material-icons">location_off</i></a>
+                <select data-bind="options: cuisines, optionsCaption: 'Select a cuisine', value: mySelectedCuisine"></select>
 
+                <div class="collection" data-bind="foreach: filteredByType">
+                    <a class="collection-item" href="#" data-bind="text: name, click: $root.populateInfoWindow"></a>
                 </div>
 
-                <div class="col s12 m9 l10">
-                    <div id="map"></div>
-                </div>
+                <a data-bind="click: showMarkers" class="btn-floating btn-large waves-effect waves-light small"><i class="material-icons">location_on</i></a>
+                <a data-bind="click: hideMarkers" class="btn-floating btn-large waves-effect waves-light small"><i class="material-icons">location_off</i></a>
 
+            </div>
+
+            <div class="col s12 m9 l10">
+                <div id="map"></div>
             </div>
 
         </div>
 
-        <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-        <script src="js/oauth-signature.min.js"></script>
-        <script src="js/knockout-3.2.0.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
-        <script src="js/app.js"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBSXrHb5YlY_NrOQF7Q6cSAjRViu8mhgdo&callback=initMap" async defer></script>
+    </div>
 
-    </body>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="js/oauth-signature.min.js"></script>
+    <script src="js/materialize.min.js"></script>
+    <script src="js/knockout-3.2.0.js"></script>
+    <script src="js/app.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBSXrHb5YlY_NrOQF7Q6cSAjRViu8mhgdo&callback=initMap" async defer></script>
+
+</body>
 
 </html>

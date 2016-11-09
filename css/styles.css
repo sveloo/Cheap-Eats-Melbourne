@@ -19,14 +19,6 @@ p {
     margin: 1rem 0;
 }
 
-.collection a.collection-item {
-    color: #4DB4F8;
-}
-
-.dropdown-content .select-dropdown .active {
-    color: #4DB4F8;
-}
-
 #infoWindow {
     width: 400px;
 }
