@@ -153,11 +153,11 @@ var ViewModel = function() {
                     var yelpStars = results.businesses[0].rating_img_url_large;
 
                     // Setup the layout of the infowindow
-                    contentString = '<div id="infoWindow"><h3><a href=' + yelpUrl + ' target="_blank">'
-                                        + marker.title + '</a></h3><p><strong>'
+                    contentString = '<div id="infoWindow"><h3>'
+                                        + marker.title + '</h3><p><strong>'
                                         + marker.cuisine + '</strong></p><p>'
-                                        + yelpSnippet + '</p><p>'
-                                        + '<img src="' + yelpStars + '"/></div>';
+                                        + '<img src="' + yelpStars + '"/></p><p>'
+                                        + yelpSnippet + ' <a href=' + yelpUrl + ' target="_blank">Read more</a></p><p></div>';
 
                     // Open the infowindow and load the layout
                     restaurantInfoWindow.open(map, marker);
@@ -214,6 +214,7 @@ var ViewModel = function() {
         markers.forEach(function(marker) {
             marker.setVisible(true);
         });
+        self.mySelectedCuisine(null);
     }
 
     self.hideMarkers = function(){
