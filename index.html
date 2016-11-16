@@ -14,6 +14,9 @@
     <!-- Bootstrap styleshett -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
 
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+
     <!-- Custom styles -->
     <link rel="stylesheet" href="css/styles.css">
 
@@ -23,24 +26,24 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12 col-md-12 col-lg-12">
-                <nav class="navbar navbar-full navbar-light">
+                <nav class="navbar navbar-light navbar-static-top bd-navbar">
                     <div class="clearfix">
-                        <a class="navbar-brand" href="#">Cheap Eats Melbourne</a>
+                        <h1 class="navbar-brand"<a href="#">Cheap Eats Melbourne</a></h1>
                         <button class="navbar-toggler float-xs-right" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar" aria-controls="exCollapsingNavbar" aria-expanded="false" aria-label="Toggle navigation"></button>
                     </div>
 
-                    <div class="collapse" id="exCollapsingNavbar">
-                        <div class="bg-inverse text-muted p-1">
-                            <p>What cuisine you feelin like?</p>
-                            <select data-bind="options: cuisines, optionsCaption: 'Select a cuisine', value: mySelectedCuisine"></select>
-                            <div class="collection" data-bind="foreach: filteredByType">
-                                <ul>
-                                    <li><a class="collection-item" href="#" data-bind="text: name, click: $root.populateInfoWindow"></a></li>
-                            </div>
-                            <div class="buttons">
-                                <a data-bind="click: showMarkers" class="btn-floating btn-large waves-effect waves-light small"><i class="material-icons">location_on</i></a>
-                                <a data-bind="click: hideMarkers" class="btn-floating btn-large waves-effect waves-light small"><i class="material-icons">location_off</i></a>
-                            </div>
+                    <div class="collapse menu" id="exCollapsingNavbar">
+                        <p class="lead">Pick a cuisine</p>
+
+                        <select class="form-control" data-bind="options: cuisines, optionsCaption: 'Select a cuisine', value: mySelectedCuisine"></select>
+
+                        <p class="lead">Or choose a restaurant</p>
+                        <div class="list-group" data-bind="foreach: filteredByType">
+                            <a class="list-group-item" href="#" data-bind="text: name, click: $root.populateInfoWindow"></a>
+                        </div>
+                        <div class="buttons">
+                            <a href="#" data-bind="click: showMarkers" class="btn-floating btn-large waves-effect waves-light small"><i class="material-icons"><i class="fa fa-map-marker fa-2x" aria-hidden="true"></i></i></a>
+                            <a href="#" data-bind="click: hideMarkers" class="btn-floating btn-large waves-effect waves-light small"><i class="material-icons"><i class="fa fa-times fa-2x" aria-hidden="true"></i></i></a>
                         </div>
                     </div>
 

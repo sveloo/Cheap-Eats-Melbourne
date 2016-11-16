@@ -210,11 +210,6 @@ function initMap() {
     vm = new ViewModel();
     ko.applyBindings(vm);
 
-    // Materialize
-    $(document).ready(function() {
-        $('select').material_select();
-    });
-
 }
 
 
