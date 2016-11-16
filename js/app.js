@@ -210,8 +210,11 @@ function initMap() {
     vm = new ViewModel();
     ko.applyBindings(vm);
 
-    // Intialise Materialize
-    $('select').material_select();
+    // Materialize
+    $(document).ready(function() {
+        $('select').material_select();
+    });
+
 }
 
 
@@ -243,6 +246,7 @@ var ViewModel = function() {
             // Animate the dropping of each marker pin
             animation: google.maps.Animation.DROP
         });
+
 
         // Create a reference to the marker data in the restaurant object.
         // Push the marker into the markers array.
@@ -333,7 +337,7 @@ var ViewModel = function() {
     self.populateInfoWindow = function(restaurant) {
         var marker = restaurant.marker;
         google.maps.event.trigger(marker, 'click');
-        self.toggleBounce(marker);
+
     };
 
     //self.mySelectedCuisine = ko.observable(self.myCuisines()[0]);
@@ -378,11 +382,15 @@ var ViewModel = function() {
         });
     }
 
+    // Got this from Google Maps documentation
     self.toggleBounce = function(marker) {
         if (marker.getAnimation() !== null) {
             marker.setAnimation(null);
         } else {
             marker.setAnimation(google.maps.Animation.BOUNCE);
+            setTimeout(function(){
+            marker.setAnimation(null);
+            }, 700);
         }
     }
 

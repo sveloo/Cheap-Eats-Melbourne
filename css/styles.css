@@ -1,28 +1,28 @@
-
 #map {
    width: 100%;
    height: 100vh;
    background-color: grey;
 }
 
-.controls {
-    padding-bottom: 2rem;
-}
-
-h1 {
-    font-size: 2.5rem;
-    margin: 1rem 0;
-}
-
-p {
-    font-size: 1.15rem;
-    margin: 1rem 0;
-}
-
 #infoWindow {
     width: 400px;
 }
 
-.chip {
-    margin: 0;
+.navbar {
+    background-color: #4CB2E6;
 }
+
+// Extra small devices (portrait phones, less than 544px)
+// No media query since this is the default in Bootstrap
+
+// Small devices (landscape phones, 544px and up)
+@media (min-width: 544px) { ... }
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) { ... }
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) { ... }
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) { ... }
