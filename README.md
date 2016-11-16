@@ -32,14 +32,11 @@ Add additional notes about how to deploy this on a live system
 * [OAuth 2.0](https://oauth.net/2/) - For authentication with the Yelp API
 * [jQuery](https://jquery.com/) - For stuff like Ajax
 * [Bootstrap 4](https://v4-alpha.getbootstrap.com/) - The web framework
+* [Snazzy Maps](https://snazzymaps.com/) - Google Map theme
 
 ## Author
 
 * **Sanjeev Veloo**
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
 ## Acknowledgments
 
