@@ -4,81 +4,38 @@
 
 Developed for Project 5 of the **Udacity Front-End Web Developer Nanodegree** by Sanjeev Veloo.
 
-This is an interactive map of the most popular Cheap Eat restaurants (Under $20 bucks) in the Melbourne city area. It pulls in restaurant reviews from Yelp! These reviews are display in a Google Map infowindow which are accessed by clicking on the restaurants in the list or the corresponding markers on the map. The restaurants can also be filtered by their cuisine. Pretty cool app, especially if you're on a budget and still looking for great food!
+## Overview
 
-## Getting Started
+This is an interactive map of the most popular Cheap Eat restaurants (Under $20 bucks) in the Melbourne city area. It pulls in restaurant reviews from Yelp. These reviews are display in a Google Map infowindow which are accessed by clicking on the restaurants in the list or the corresponding markers on the map. The restaurants can also be filtered by their cuisine. Pretty cool app, especially if you're on a budget and still looking for great food!
 
-Fork the repo. It has everything you need to get started.
+## To Run
 
-### Prerequisites
+1. Fork the repo. It has everything you need.
+2. Open index.html in your browser or phone and you're good to go.
+3. Let's eat!
 
-What things you need to install the software and how to install them
+## Using the App
 
-```
-Give examples
-```
-
-### Installing
-
-A step by step series of examples that tell you have to get a development env running
-
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
+* Click on any marker to view information about the restaurant.
+* Click on the mobile menu icon to dropdown the controls menu.
+* In the menu you can filter the restaurant list by cuisine from the select list.
+* And by clicking the restaurant name you can view more information on the restaurant too.
+* Lastly, you can hide or show the markers as well.
 
 Add additional notes about how to deploy this on a live system
 
 ## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+* [Google Maps API](https://developers.google.com/maps/) - The Map system
+* [KnockoutJS](http://knockoutjs.com/) - The JavaScript library used for dynamically updating the DOM. Built with an MVVM model.
+* [Yelp API 2.0](https://www.yelp.com.au/developers/documentation/v2/overview) - Yelp API for restaurant reviews
+* [OAuth 2.0](https://oauth.net/2/) - For authentication with the Yelp API
+* [jQuery](https://jquery.com/) - For stuff like Ajax
+* [Bootstrap 4](https://v4-alpha.getbootstrap.com/) - The web framework
 
-## Contributing
+## Author
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags).
-
-## Authors
-
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+* **Sanjeev Veloo**
 
 ## License
 
@@ -86,6 +43,11 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Hat tip to anyone who's code was used
-* Inspiration
-* etc
+* Google Maps documentation
+* Yelp API documentation
+* KnockoutJS documentation
+* Oauth Documentation
+* Bootstrap Documentation
+* Stack Oveflow
+* Udacity Forums
+* Udacity Coach One on One Sessions
