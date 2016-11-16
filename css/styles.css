@@ -19,7 +19,15 @@
 }
 
 .form-control {
+    width: 25%;
+    margin: 0 auto;
     margin-bottom: 2rem;
+}
+
+.list-group-item {
+    width: 25%;
+    margin: 0 auto;
+    padding: 0.5rem;
 }
 
 .marker-button {
