@@ -1,3 +1,7 @@
+.container-fluid {
+  z-index: 100;
+  position: relative;
+}
 /* Semi-transparent header that hovers over map */
 #stickyNav {
     z-index: 100;
@@ -5,32 +9,28 @@
 }
 /* Align the Site Name and Mobile Menu button */
 .navbar-brand {
-    font-weight: 700;
-    font-size: 1.5rem;
-    margin: 0.5rem;
+    font-weight: 600;
+    font-size: 1rem;
+    margin: 0.75rem 0;
 }
 .navbar-toggler {
+    float: right;
     margin: 0.5rem 0;
     background-color: white;
 }
-/* Make map occupy fullsize of viewport window */
-#fullScreenMap {
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
 /*Set the map dimensions*/
 #map {
-   width: 100vw;
+   width: 100%;
    height: 100vh;
+   margin: auto 0;
    background-color: grey;
+   z-index: 0;
 }
 
 /*Google Map infowindow CSS*/
 #infoWindow {
     padding: 20px;
-    width: 400px;
+    width: 260px;
     z-index: 200;
 }
 #infoWindow a {
@@ -87,8 +87,10 @@
     .list-group-item {
         width: 30vw;
     }
+    #infoWindow {
+        width: 500px;
+    }
 }
-
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: 992px) {
     .navbar-brand {
@@ -98,6 +100,9 @@
     .form-control,
     .list-group-item {
         width: 30vw;
+    }
+    #infoWindow {
+        width: 500px;
     }
 }
 
@@ -110,5 +115,8 @@
     .form-control,
     .list-group-item {
         width: 30vw;
+    }
+    #infoWindow {
+        width: 500px;
     }
 }
