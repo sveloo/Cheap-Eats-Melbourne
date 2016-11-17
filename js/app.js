@@ -91,8 +91,8 @@ var restaurantArray = [{
 function initMap() {
 
     function googleError() {
-        alert('For some reason Google Maps isn\'t loading, have you checked your Internet or Wifi connection?')
-    };
+        alert('For some reason Google Maps isn\'t loading, have you checked your Internet or Wifi connection?');
+    }
 
     map = new google.maps.Map(document.getElementById('map'), {
 
@@ -324,9 +324,9 @@ var ViewModel = function() {
 
                     // Setup error handling and response messages
                     var response = results.businesses[0];
-                    response.url != undefined ? yelpUrl = '<a href=' + response.url +  ' target="_blank">Read more</a>' : yelpUrl = '';
-                    response.snippet_text != undefined ? yelpSnippet = response.snippet_text : yelpSnippet = 'No restaurant description available';
-                    response.rating_img_url_large != undefined ? yelpStars = '<img src="' + response.rating_img_url_large + '"/>' : yelpStars = 'No restaurant rating available';
+                    response.url !== undefined ? yelpUrl = '<a href=' + response.url +  ' target="_blank">Read more</a>' : yelpUrl = '';
+                    response.snippet_text !== undefined ? yelpSnippet = response.snippet_text : yelpSnippet = 'No restaurant description available';
+                    response.rating_img_url_large !== undefined ? yelpStars = '<img src="' + response.rating_img_url_large + '"/>' : yelpStars = 'No restaurant rating available';
 
                     // Setup the custom layout of the infowindow
                     contentString = '<div id="info-window"><h3>' + marker.title + '</h3><p>' + yelpStars + '</p><p>' + yelpSnippet + yelpUrl + '</p><p><span class="label">' + marker.cuisine + '</span><p></div>';
@@ -338,7 +338,7 @@ var ViewModel = function() {
 
                 error: function() {
                     // Error message on API load failure.
-                    contentString = '<div id="info-window"><h3>Yelp has failed to load!</h3></div>'
+                    contentString = '<div id="info-window"><h3>Yelp has failed to load!</h3></div>';
                     restaurantInfoWindow.open(map, marker);
                     restaurantInfoWindow.setContent(contentString);
                 }
@@ -416,5 +416,5 @@ var ViewModel = function() {
 
 // Error call handler
 function mapError() {
-    alert('For some reason Google Maps isn\'t loading, have you checked your Internet or Wifi connection?')
-};
+    alert('For some reason Google Maps isn\'t loading, have you checked your Internet or Wifi connection?');
+}
