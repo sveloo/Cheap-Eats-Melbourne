@@ -99,6 +99,8 @@ function initMap() {
         mapTypeId: 'terrain',
         // Map zoom level
         zoom: 15,
+        // Disables default Map UI
+        disableDefaultUI: true,
         // Map styles were taken from a Snazzy Maps template
         styles: [{
             "featureType": "all",
@@ -197,6 +199,11 @@ function initMap() {
                 "color": "#4cb2e6"
             }]
         }]
+    });
+    google.maps.event.addDomListener(window, "resize", function() {
+        var center = map.getCenter();
+        google.maps.event.trigger(map, "resize");
+        map.setCenter(center);
     });
     //Initialise Knockout here cos it needs Google Map to be running
     vm = new ViewModel();
