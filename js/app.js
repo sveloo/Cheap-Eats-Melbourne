@@ -57,7 +57,7 @@ var restaurantArray = [{
     },
     cuisine: 'Japanese'
 }, {
-    name: 'Shanghai Street',
+    name: 'D House Cafe',
     coords: {
         lat: -37.811326,
         lng: 144.967701
@@ -66,8 +66,8 @@ var restaurantArray = [{
 }, {
     name: 'ShanDong MaMa',
     coords: {
-        lat: -37.8126419,
-        lng: 144.9651844
+        lat: -37.810882,
+        lng: 144.964134
     },
     cuisine: 'Asian'
 }, {
@@ -267,8 +267,10 @@ var ViewModel = function() {
         // Create an onclick event to open an infowindow at each marker.
         marker.addListener('click', function() {
 
-            // Center Map to position of marker.
-            map.setCenter(marker.getPosition());
+            // Center Map to position of marker using panTo and a delay of 2 seconds.
+            window.setTimeout(function() {
+                map.panTo(marker.getPosition());
+            }, 2000);
 
             // Bounce the marker on click.
             self.toggleBounce(marker);
@@ -287,6 +289,7 @@ var ViewModel = function() {
                 YELP_TOKEN = 'sv3hcY_HyOH2WdjWuEjCHbDXhhLwnz_X',
                 YELP_KEY_SECRET = 'vPFLQCN_HH1v33bDuUTHv479WF8',
                 YELP_TOKEN_SECRET = 'xn8agIL0m-1MU_Aw3Ng8UbC9bL0';
+
             var parameters = {
                 oauth_consumer_key: YELP_KEY,
                 oauth_token: YELP_TOKEN,
@@ -300,6 +303,7 @@ var ViewModel = function() {
                 term: 'restaurants',
                 location: 'Melbourne+Victoria+Australia',
             };
+
             var encodedSignature = oauthSignature.generate('GET', yelp_url, parameters, YELP_KEY_SECRET, YELP_TOKEN_SECRET);
             parameters.oauth_signature = encodedSignature;
 
@@ -314,11 +318,19 @@ var ViewModel = function() {
 
                 success: function(results) {
                     // Setup variables for Yelp specific results
-                    var yelpUrl = results.businesses[0].url;
-                    var yelpSnippet = results.businesses[0].snippet_text;
-                    var yelpStars = results.businesses[0].rating_img_url_large;
+                    var yelpUrl,
+                        yelpSnippet,
+                        yelpStars;
+
+                    // Setup error handling and response messages
+                    var response = results.businesses[0];
+                    response.url != undefined ? yelpUrl = '<a href=' + response.url +  ' target="_blank">Read more</a>' : yelpUrl = '';
+                    response.snippet_text != undefined ? yelpSnippet = response.snippet_text : yelpSnippet = 'No restaurant description available';
+                    response.rating_img_url_large != undefined ? yelpStars = '<img src="' + response.rating_img_url_large + '"/>' : yelpStars = 'No restaurant rating available';
+
                     // Setup the custom layout of the infowindow
-                    contentString = '<div id="infoWindow"><h3>' + marker.title + '</h3><p>' + '<img src="' + yelpStars + '"/></p><p>' + yelpSnippet + ' <a href=' + yelpUrl + ' target="_blank">Read more</a></p><p><span class="label">' + marker.cuisine + '</span><p></div>';
+                    contentString = '<div id="info-window"><h3>' + marker.title + '</h3><p>' + yelpStars + '</p><p>' + yelpSnippet + yelpUrl + '</p><p><span class="label">' + marker.cuisine + '</span><p></div>';
+
                     // Open the infowindow and load the layout
                     restaurantInfoWindow.open(map, marker);
                     restaurantInfoWindow.setContent(contentString);
@@ -326,7 +338,9 @@ var ViewModel = function() {
 
                 error: function() {
                     // Error message on API load failure.
-                    contentString = '<div id="infoWindow"><h3>Yelp has failed to load!</h3></div>'
+                    contentString = '<div id="info-window"><h3>Yelp has failed to load!</h3></div>'
+                    restaurantInfoWindow.open(map, marker);
+                    restaurantInfoWindow.setContent(contentString);
                 }
             };
 

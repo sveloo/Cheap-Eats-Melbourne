@@ -2,22 +2,26 @@
   z-index: 100;
   position: relative;
 }
+
 /* Semi-transparent header that hovers over map */
-#stickyNav {
+#sticky-nav {
     z-index: 100;
     background-color: RGBA(256, 256, 256, 0.7);
 }
+
 /* Align the Site Name and Mobile Menu button */
 .navbar-brand {
     font-weight: 600;
     font-size: 1rem;
     margin: 0.75rem 0;
 }
+
 .navbar-toggler {
     float: right;
     margin: 0.5rem 0;
     background-color: white;
 }
+
 /*Set the map dimensions*/
 #map {
    width: 100%;
@@ -28,16 +32,23 @@
 }
 
 /*Google Map infowindow CSS*/
-#infoWindow {
+#info-window {
     padding: 20px;
     width: 260px;
     z-index: 200;
 }
-#infoWindow a {
+
+#info-window a {
     color: RGBA(77, 180, 248, 1.00);
     text-decoration: none;
 }
-#infoWindow .label {
+
+#info-window p {
+    font-size: 1rem;
+    font-weight: 300;
+}
+
+#info-window .label {
     background-color: RGBA(77, 180, 248, 1.00);
     display: inline;
     padding: .2em .6em .3em;
@@ -49,10 +60,7 @@
     vertical-align: baseline;
     border-radius: .25em;
 }
-#infoWindow p {
-    font-size: 1rem;
-    font-weight: 300;
-}
+
 /*Mobile Menu*/
 .menu,
 .buttons {
@@ -83,28 +91,35 @@
         font-size: 1.75rem;
         margin: 0.25rem;
     }
+
     .form-control,
     .list-group-item {
         width: 30vw;
     }
-    #infoWindow {
+
+    #info-window {
         width: 500px;
     }
 }
+
+
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: 992px) {
     .navbar-brand {
         font-size: 1.75rem;
         margin: 0.25rem;
     }
+
     .form-control,
     .list-group-item {
         width: 30vw;
     }
-    #infoWindow {
+
+    #info-window {
         width: 500px;
     }
 }
+
 
 /* Large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
@@ -116,7 +131,8 @@
     .list-group-item {
         width: 30vw;
     }
-    #infoWindow {
+
+    #info-window {
         width: 500px;
     }
 }

@@ -6,37 +6,45 @@
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
     <meta content="An interactive Google Map of 20 Cheap Eat restaurants in Melbourne" name="description">
     <meta content="Sanjeev Veloo" name="author">
-    <title>Cheap Eats Melbourne</title><!-- Bootstrap styleshett -->
-    <link href="css/bootstrap.min.css" rel="stylesheet"><!-- Font Awesome -->
-    <link href="css/font-awesome.min.css" rel="stylesheet"><!-- Custom styles -->
+    <title>Cheap Eats Melbourne</title>
+    <link rel="shortcut icon" type="image/png" href="img/favicon.png">
+    <!-- Bootstrap styleshett -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <!-- Custom styles -->
     <link href="css/styles.css" rel="stylesheet">
 </head>
 <body>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-12 col-md-12 col-lg-12" id="stickyNav">
-                <nav class="navbar navbar-light navbar-static-top bd-navbar">
-                    <div class="clearfix">
-                        <h1 class="navbar-brand text-center">Cheap Eats Melbourne</h1><button aria-controls="exCollapsingNavbar" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#exCollapsingNavbar" data-toggle="collapse" type="button"></button>
-                    </div>
-                    <div class="collapse menu" id="exCollapsingNavbar">
-                        <p class="lead">Pick a cuisine</p><select class="form-control" data-bind="options: cuisines, optionsCaption: 'All Cuisines', value: mySelectedCuisine">
-                        </select>
-                        <p class="lead">Or choose a restaurant</p>
-                        <div class="list-group" data-bind="foreach: filteredByType">
-                            <a class="list-group-item" data-bind="text: name, click: $root.populateInfoWindow" href="#"></a>
-                       </div>
-                        <div class="buttons">
-                            <p class="lead">Show/Hide Markers</p>
-                            <a href="#" class="marker-button" data-bind="click: showMarkers"><i class="fa fa-eye fa-2x" aria-hidden="true"></i></a>
-
-                            <a href="#" class="marker-button" data-bind="click: hideMarkers"><i class="fa fa-eye-slash fa-2x" aria-hidden="true"></i></a>
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <header>
+                    <nav class="navbar navbar-light navbar-static-top bd-navbar" id="sticky-nav">
+                        <div class="clearfix">
+                            <h1 class="navbar-brand text-center">Cheap Eats Melbourne</h1><button aria-controls="exCollapsingNavbar" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#exCollapsingNavbar" data-toggle="collapse" type="button"></button>
                         </div>
-                    </div>
-                </nav>
+                        <div class="collapse menu" id="exCollapsingNavbar">
+                            <p class="lead">Pick a cuisine</p><select class="form-control" data-bind="options: cuisines, optionsCaption: 'All Cuisines', value: mySelectedCuisine">
+                            </select>
+                            <p class="lead">Or choose a restaurant</p>
+                            <div class="list-group" data-bind="foreach: filteredByType">
+                                <a class="list-group-item" data-bind="text: name, click: $root.populateInfoWindow" href="#"></a>
+                           </div>
+                            <div class="buttons">
+                                <p class="lead">Show/Hide Markers</p>
+                                <a href="#" class="marker-button" data-bind="click: showMarkers"><i class="fa fa-eye fa-2x" aria-hidden="true"></i></a>
+
+                                <a href="#" class="marker-button" data-bind="click: hideMarkers"><i class="fa fa-eye-slash fa-2x" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+                    </nav>
+                </header>
             </div>
             <div class="col-sm-12 col-md-12 col-lg-12" id="fullScreenMap">
-                <div id="map"></div>
+                <main>
+                    <div id="map"></div>
+                </main>
             </div>
         </div>
     </div>
