@@ -245,6 +245,8 @@ var ViewModel = function() {
         bounds.extend(marker.position);
         // Create an onclick event to open an infowindow at each marker.
         marker.addListener('click', function() {
+            // Center Map to position of marker.
+            map.setCenter(marker.getPosition());
             self.toggleBounce(marker);
             // YELP API AUTHENTICATION
             // This code was adapated from a Yelp API authentication code template posted by a Udacity Coach in the Udacity forums.
@@ -284,7 +286,7 @@ var ViewModel = function() {
                     var yelpSnippet = results.businesses[0].snippet_text;
                     var yelpStars = results.businesses[0].rating_img_url_large;
                     // Setup the custom layout of the infowindow
-                    contentString = '<div id="infoWindow"><h3>' + marker.title + '</h3><p>' + '<img src="' + yelpStars + '"/></p><p>' + yelpSnippet + ' <a href=' + yelpUrl + ' target="_blank">Read more</a></p><p class="chip">' + marker.cuisine + '</p><p></div>';
+                    contentString = '<div id="infoWindow"><h3>' + marker.title + '</h3><p>' + '<img src="' + yelpStars + '"/></p><p>' + yelpSnippet + ' <a href=' + yelpUrl + ' target="_blank">Read more</a></p><p><span class="label">' + marker.cuisine + '</span><p></div>';
                     // Open the infowindow and load the layout
                     restaurantInfoWindow.open(map, marker);
                     restaurantInfoWindow.setContent(contentString);

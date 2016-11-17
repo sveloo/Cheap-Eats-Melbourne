@@ -1,16 +1,17 @@
 /* Semi-transparent header that hovers over map */
 #stickyNav {
     z-index: 100;
-    background-color: RGBA(256, 256, 256, 0.8);
+    background-color: RGBA(256, 256, 256, 0.7);
 }
 /* Align the Site Name and Mobile Menu button */
 .navbar-brand {
-    font-weight: 300;
+    font-weight: 700;
     font-size: 1.5rem;
     margin: 0.5rem;
 }
 .navbar-toggler {
     margin: 0.5rem 0;
+    background-color: white;
 }
 /* Make map occupy fullsize of viewport window */
 #fullScreenMap {
@@ -30,8 +31,28 @@
 #infoWindow {
     padding: 20px;
     width: 400px;
+    z-index: 200;
 }
-
+#infoWindow a {
+    color: RGBA(77, 180, 248, 1.00);
+    text-decoration: none;
+}
+#infoWindow .label {
+    background-color: RGBA(77, 180, 248, 1.00);
+    display: inline;
+    padding: .2em .6em .3em;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25em;
+}
+#infoWindow p {
+    font-size: 1rem;
+    font-weight: 300;
+}
 /*Mobile Menu*/
 .menu,
 .buttons {
